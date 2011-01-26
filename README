@@ -1,0 +1,10 @@
+mediafragments.js - written 2011 by Thomas Steiner, Google.
+(tomac AT google DOT com, @tomayac)
+
+Released under the CC0 1.0 Universal (CC0 1.0) license.
+(http://creativecommons.org/publicdomain/zero/1.0/)
+
+Media Fragments URI is a W3C specification with the objective to provide for
+media-format independent, standard means of addressing media fragments on the
+Web using Uniform Resource Identifiers (URIs).
+(http://www.w3.org/2008/WebVideo/Fragments/)
