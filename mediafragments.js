@@ -51,13 +51,14 @@ var MediaFragments = (function(window) {
           };
         }
       }
-      start = start.replace(/^smpte(-25|-30|-30-drop)?\:/, '');
+      var prefix = start.replace(/^(smpte(-25|-30|-30-drop)?).*/, '$1');
+      start = start.replace(/^smpte(-25|-30|-30-drop)?\:/, '');      
       if ((smpte.test(start)) && (smpte.test(end))) {            
         if (start && end) {
           if (true /* ToDo: add check to ensure that start < end */) {    
             return {
               value: value,
-              unit: 'smpte',
+              unit: prefix,
               start: start,
               end: end
             };            
@@ -68,7 +69,7 @@ var MediaFragments = (function(window) {
         } else {
           return {
             value: value,
-            unit: 'smpte',
+            unit: prefix,
             start: start,
             end: end
           };          
