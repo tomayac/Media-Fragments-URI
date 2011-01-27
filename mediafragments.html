@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="mediafragments.js"></script>
-    <script type="text/javascript">
-      console.log(MediaFragments.parseMediaFragmentsUri());
-    </script>
+    <title>Media Fragments URI - mediafragments.js</title>
   </head>
   <body>
+    <h1>Media Fragments URI</h1>
+    <h2>mediafragments.js</h2>
+    <p>
+      The source code of
+      <a href="https://github.com/tomayac/Media-Fragments-URI">
+        mediafragments.js
+      </a>
+      can be downloaded from GitHub. It is released under the
+      <a href="http://creativecommons.org/publicdomain/zero/1.0/">
+        CC0 1.0 Universal
+      </a> (CC0 1.0) license.
+    </p>
+    <p>
+      The URI of <a href=".">this</a> document parsed as a Media Fragments URI
+      looks like this:
+    </p>  
+    <pre id="container1"></pre>
+    <p>
+      Parse the following URI as a Media Fragments URI:
+    </p>  
+    <input
+        type="text"
+        id="uri"
+        style="width:65em;"
+        value="http://example.com/example.webm?t=clock:2011-10-01T23:00:45.123Z,2011-10-01T23:00:45.123Z#xywh=pixel:10,10,30,30" />
+    <button
+        onclick="parse(document.getElementById('uri').value);"
+        type="button">
+      Parse
+    </button>
+    <pre id="container2"></pre>
+    <div>
+      Thomas Steiner, Google
+      <br/>
+      (tomac AT google DOT com,
+      <a href="http://twitter.com/tomayac">@tomayac</a>)
+    </div>  
+    <script type="text/javascript" src="mediafragments.js"></script>
+    <script type="text/javascript">
+      var container1 = document.getElementById('container1');
+      container1.innerHTML =
+          MediaFragments.parseMediaFragmentsUri();
+      function parse(uri) {
+        var container2 = document.getElementById('container2');
+        container2.innerHTML =
+            MediaFragments.parseMediaFragmentsUri(uri);
+      }
+    </script>    
   </body>
 </html>

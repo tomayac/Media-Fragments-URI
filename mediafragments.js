@@ -108,12 +108,12 @@ var MediaFragments = (function(window) {
       // "percent:" is obligatory
       var percentSelection = /^percent\:\d+,\d+,\d+,\d+$/;
       
+      var values = value.replace(/(pixel|percent)\:/, '').split(','); 
+      var x = values[0];
+      var y = values[1];
+      var w = values[2];
+      var h = values[3];                              
       if (pixelCoordinates.test(value)) {             
-        var values = value.replace('pixel:', '').split(','); 
-        var x = values[0];
-        var y = values[1];
-        var w = values[2];
-        var h = values[3];                        
         return {
           value: value,
           unit: 'pixel',          
@@ -123,12 +123,6 @@ var MediaFragments = (function(window) {
           h: h
         };
       } else if (percentSelection.test(value)) {
-        value = value.replace('percent:', '');
-        var values = value.split(','); 
-        var x = values[0];
-        var y = values[1];
-        var w = values[2];
-        var h = values[3];        
         /**
          * checks for valid percent selections
          */
@@ -154,7 +148,7 @@ var MediaFragments = (function(window) {
         });        
         if (checkPercentSelection(x, y, w, h)) {
           return {
-            value: 'percent:' + value,
+            value: value,
             unit: 'percent',          
             x: x,
             y: y,
@@ -171,12 +165,14 @@ var MediaFragments = (function(window) {
     },
     track: function(value) {
       return {
-        value: value
+        value: value,
+        name: value
       };
     },
     id: function(value) {          
       return {
-        value: value
+        value: value,
+        id: value
       };
     }
   }      
@@ -236,9 +232,31 @@ var MediaFragments = (function(window) {
           uri.substring(indexOfQuestionMark + 1, end) : '';
       // retrieve the hash part of the URI
       var hash = indexOfHash !== -1? uri.substring(indexOfHash + 1) : '';
+      var queryValues = splitKeyValuePairs(query);
+      var hashValues = splitKeyValuePairs(hash);
       return {
-        query: splitKeyValuePairs(query),
-        hash: splitKeyValuePairs(hash)      
+        query: queryValues,
+        hash: hashValues,
+        toString: function() {
+          var buildString = function(name, thing) {
+            var s = '\n[' + name + ']:\n';
+            Object.keys(thing).forEach(function(key) {
+              s += '  * ' + key + ':\n';
+              thing[key].forEach(function(value) {
+                s += '    [\n';
+                Object.keys(value).forEach(function(valueKey) {
+                  s += '      - ' + valueKey + ': ' + value[valueKey] + '\n';
+                });
+                s += '   ]\n';
+              }); 
+            });
+            return s;
+          }
+          var string =
+              buildString('Query', queryValues) +
+              buildString('Hash', hashValues);
+          return string; 
+        }      
       };
     }
   }
