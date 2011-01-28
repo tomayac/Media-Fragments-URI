@@ -23,15 +23,44 @@ var MediaFragments = (function(window) {
       var end = components[1]? components[1] : '';
       
       var nptSeconds = /^((npt\:)?\d+(\.\d+)?)?$/;
-      var nptHoursMinutesSeconds = /^((npt\:)?\d+\:\d\d\:\d\d(\.\d+)?)?$/;
+      var nptHoursMinutesSeconds = /^((npt\:)?((\d+)\:)?(\d\d)\:(\d\d)(\.\d+)?)?$/;
       var smpte = /^(\d\:\d\d\:\d\d(\:\d\d(\.\d\d)?)?)?$/;
-      // regexp stolen from http://delete.me.uk/2005/03/iso8601.html
+      // regexp adapted from http://delete.me.uk/2005/03/iso8601.html
       var wallClock = /^((\d{4})(-(\d{2})(-(\d{2})(T(\d{2})\:(\d{2})(\:(\d{2})(\.(\d+))?)?(Z|(([-\+])(\d{2})\:(\d{2})))?)?)?)?)?$/;
 
       if ((nptSeconds.test(start) || nptHoursMinutesSeconds.test(start)) &&
           (nptSeconds.test(end) || nptHoursMinutesSeconds.test(end))) {
         if (start && end) {
-          if (true /* ToDo: add check to ensure that start < end */) {    
+          // converts hh:mm:ss.ms to ss.ms
+          function convertHoursMinutesSecondsToSeconds(time) {
+            var hours =
+                parseInt(time.replace(nptHoursMinutesSeconds, '$4'), 10);
+            if (isNaN(hours)) {
+              hours = 0;
+            }    
+            var minutes =
+                parseInt(time.replace(nptHoursMinutesSeconds, '$5'), 10);
+            if (isNaN(minutes)) {
+              minutes = 0;
+            }                
+            var seconds =
+                parseInt(time.replace(nptHoursMinutesSeconds, '$6'), 10);
+            if (isNaN(seconds)) {
+              seconds = 0;
+            }                
+            var milliseconds = time.replace(nptHoursMinutesSeconds, '$7');            
+            var result =
+                ((hours * 3600) + (minutes * 60) + (seconds)).toString() +
+                milliseconds;                
+            return result;            
+          }
+          if (nptHoursMinutesSeconds.test(start)) {
+            start = convertHoursMinutesSecondsToSeconds(start);
+          }
+          if (nptHoursMinutesSeconds.test(end)) {
+            end = convertHoursMinutesSecondsToSeconds(end);
+          }   
+          if (parseFloat(start) < parseFloat(end)) {    
             return {
               value: value,
               unit: 'npt',
