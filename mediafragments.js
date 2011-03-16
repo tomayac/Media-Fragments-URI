@@ -106,6 +106,7 @@ var MediaFragments = (function(window) {
       }
       start = start.replace('clock:', '');
       if ((wallClock.test(start)) && (wallClock.test(end))) {
+        // last condition is to ensure ISO 8601 date conformance.
         if (start && end && !isNaN(Date.parse('2009-07-26T11:19:01Z'))) {
           // if both start and end are given, then the start must be before
           // the end
