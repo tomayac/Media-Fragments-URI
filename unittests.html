@@ -11,7 +11,7 @@
         var uri = 'http://example.com/example.webm';        
 
         module("Media Fragments URI - Query Part Unit Tests");  
-        
+
         test("Valid simple temporal test npt (seconds)", function() {  
           expect(1);  
           var should = {
@@ -830,9 +830,8 @@
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=clock:2009-07-26T11:19:01Z,2009-07-26T11:20:01Z#xywh=10,10,10,10').hash;
           deepEqual(is, should, '');  
-        });                    
-                
-      });
+        });                                    
+      });      
     </script>
   </head>
   <body>
