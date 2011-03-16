@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>documents</key>
+	<array>
+		<dict>
+			<key>filename</key>
+			<string>mediafragments.html</string>
+			<key>selected</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>mediafragments.js</string>
+			<key>selected</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>unittests.html</string>
+			<key>selected</key>
+			<true/>
+		</dict>
+	</array>
+	<key>fileHierarchyDrawerWidth</key>
+	<integer>200</integer>
+	<key>metaData</key>
+	<dict/>
+	<key>showFileHierarchyDrawer</key>
+	<true/>
+	<key>windowFrame</key>
+	<string>{{210, 38}, {1070, 740}}</string>
+</dict>
+</plist>
