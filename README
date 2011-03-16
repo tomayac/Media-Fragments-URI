@@ -8,3 +8,5 @@ Media Fragments URI is a W3C specification with the objective to provide for
 media-format independent, standard means of addressing media fragments on the
 Web using Uniform Resource Identifiers (URIs).
 (http://www.w3.org/2008/WebVideo/Fragments/)
+
+You can see mediafragments.js in action at http://tomayac.com/mediafragments/mediafragments.html.
