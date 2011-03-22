@@ -16,7 +16,7 @@
 			<key>filename</key>
 			<string>mediafragments.js</string>
 			<key>lastUsed</key>
-			<date>2011-03-16T09:29:05Z</date>
+			<date>2011-03-16T09:39:12Z</date>
 			<key>selected</key>
 			<true/>
 		</dict>
@@ -50,14 +50,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>65</integer>
+				<integer>68</integer>
 				<key>line</key>
-				<integer>108</integer>
+				<integer>109</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>93</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>46</integer>
+				<key>line</key>
+				<integer>109</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>68</integer>
+				<key>line</key>
+				<integer>109</integer>
+			</dict>
 		</dict>
 		<key>unittests.html</key>
 		<dict>

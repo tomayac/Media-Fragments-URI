@@ -6,7 +6,7 @@ var MediaFragments = (function(window) {
   var SEPARATOR = '&';  
   
   // report errors?
-  var VERBOSE = true;
+  var VERBOSE = false;
   
   var logWarning = function(message) {
     if (VERBOSE) {
@@ -271,6 +271,16 @@ var MediaFragments = (function(window) {
         toString: function() {
           var buildString = function(name, thing) {
             var s = '\n[' + name + ']:\n';
+            if(!Object.keys) Object.keys = function(o){            
+              if (o !== Object(o)) {
+                throw new TypeError('Object.keys called on non-object');
+              }
+              var ret = [], p;
+              for (p in o) {
+                if (Object.prototype.hasOwnProperty.call(o,p)) ret.push(p);
+              }
+              return ret;
+            }            
             Object.keys(thing).forEach(function(key) {
               s += '  * ' + key + ':\n';
               thing[key].forEach(function(value) {
