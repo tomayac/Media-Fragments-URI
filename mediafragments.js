@@ -34,7 +34,7 @@ var MediaFragments = (function(window) {
     }
   }
   
-  // the currently supported media fragments dimensions are: t, xywh, track, id
+  // the currently supported media fragments dimensions are: t, xywh, track, chapter
   // allows for O(1) checks for existence of valid keys
   var dimensions = {
     t: function(value) {          
@@ -220,10 +220,10 @@ var MediaFragments = (function(window) {
         name: value
       };
     },
-    id: function(value) {          
+    chapter: function(value) {          
       return {
         value: value,
-        id: value
+        chapter: value
       };
     }
   }      
