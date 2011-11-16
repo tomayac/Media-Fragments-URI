@@ -116,14 +116,14 @@
           var should = {
             t: [
               {
-                value: 'smpte-30:0:02:00,0:02:01:15',
+                value: 'smpte-30:0:02:00,0:02:01.15',
                 unit: 'smpte-30',
-                end: '0:02:01:15',
+                end: '0:02:01.15',
                 start: '0:02:00'
               }
             ]
           };
-          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:15').query;
+          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01.15').query;
           deepEqual(is, should, '');  
         });    
 
@@ -380,9 +380,9 @@
           var should = {
             t: [
               {
-                value: 'smpte-30:0:02:00,0:02:01:15',
+                value: 'smpte-30:0:02:00,0:02:01.15',
                 unit: 'smpte-30',
-                end: '0:02:01:15',
+                end: '0:02:01.15',
                 start: '0:02:00'
               }
             ],
@@ -397,7 +397,7 @@
               }
             ]            
           };
-          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:15&xywh=10,10,10,10').query;
+          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01.15&xywh=10,10,10,10').query;
           deepEqual(is, should, '');  
         });    
 
@@ -450,14 +450,14 @@
           var should = {
             t: [
               {
-                value: 'smpte-30:0:02:00,0:02:01:15',
+                value: 'smpte-30:0:02:00,0:02:01.15',
                 unit: 'smpte-30',
-                end: '0:02:01:15',
+                end: '0:02:01.15',
                 start: '0:02:00'
               }
             ]
           };
-          var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:0:02:00,0:02:01:15').hash;
+          var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:0:02:00,0:02:01.15').hash;
           deepEqual(is, should, '');  
         });    
 
@@ -693,9 +693,9 @@
           var should = {
             t: [
               {
-                value: 'smpte-30:0:02:00,0:02:01:15',
+                value: 'smpte-30:0:02:00,0:02:01.15',
                 unit: 'smpte-30',
-                end: '0:02:01:15',
+                end: '0:02:01.15',
                 start: '0:02:00'
               }
             ],
@@ -710,7 +710,7 @@
               }
             ]            
           };
-          var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:0:02:00,0:02:01:15&xywh=10,10,10,10').hash;
+          var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:0:02:00,0:02:01.15&xywh=10,10,10,10').hash;
           deepEqual(is, should, '');  
         });    
 
@@ -777,14 +777,14 @@
           var should = {
             t: [
               {
-                value: 'smpte-30:0:02:00,0:02:01:15',
+                value: 'smpte-30:0:02:00,0:02:01.15',
                 unit: 'smpte-30',
-                end: '0:02:01:15',
+                end: '0:02:01.15',
                 start: '0:02:00'
               }
             ]
           };
-          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:15#xywh=10,10,10,10').query;
+          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01.15#xywh=10,10,10,10').query;
           deepEqual(is, should, '');            
           var should = {
             xywh: [
@@ -798,7 +798,7 @@
               }
             ]            
           };
-          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:15#xywh=10,10,10,10').hash;
+          var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01.15#xywh=10,10,10,10').hash;
           deepEqual(is, should, '');  
         });    
 

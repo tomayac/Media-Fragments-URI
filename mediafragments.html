@@ -35,6 +35,7 @@
       Parse
     </button>
     <pre id="container2"></pre>
+    <input id="container3"/>
     <div>
       Thomas Steiner, Google
       <br/>
@@ -43,6 +44,10 @@
     </div>  
     <script type="text/javascript" src="mediafragments.js"></script>
     <script type="text/javascript">
+      var uri = document.getElementById('uri');
+      uri.addEventListener('click', function(e) {
+        uri.select();
+      }, false);    
       var container1 = document.getElementById('container1');
       container1.innerHTML =
           MediaFragments.parseMediaFragmentsUri();
@@ -50,6 +55,12 @@
         var container2 = document.getElementById('container2');
         container2.innerHTML =
             MediaFragments.parseMediaFragmentsUri(uri);
+        var container3 = document.getElementById('container3');
+        container3.addEventListener('click', function(e) {
+          container3.select();
+        }, false);
+        container3.value =
+            JSON.stringify(MediaFragments.parseMediaFragmentsUri(uri));            
       }
     </script>    
   </body>

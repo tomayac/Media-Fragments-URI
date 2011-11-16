@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>mediafragments.js</string>
+	<string>unittests.html</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -16,15 +16,15 @@
 			<key>filename</key>
 			<string>mediafragments.js</string>
 			<key>lastUsed</key>
-			<date>2011-03-16T09:39:12Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2011-11-16T08:24:31Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>unittests.html</string>
 			<key>lastUsed</key>
-			<date>2011-03-16T09:23:32Z</date>
+			<date>2011-11-16T08:24:31Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -50,29 +50,29 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>68</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>109</integer>
+				<integer>241</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>93</integer>
+			<integer>222</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>46</integer>
+				<integer>8</integer>
 				<key>line</key>
-				<integer>109</integer>
+				<integer>241</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>68</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>109</integer>
+				<integer>241</integer>
 			</dict>
 		</dict>
 		<key>unittests.html</key>
@@ -80,14 +80,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>21</integer>
 				<key>line</key>
-				<integer>462</integer>
+				<integer>14</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>443</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -99,6 +99,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{210, 38}, {1070, 740}}</string>
+	<string>{{210, 50}, {1070, 739}}</string>
 </dict>
 </plist>

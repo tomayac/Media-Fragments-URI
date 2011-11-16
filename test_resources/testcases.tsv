@@ -1,0 +1,90 @@
+TC0001-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=,	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0002-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,3	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0003-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=7,3	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0004-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0,9.97	Playback of the entire media resource	{"query":{},"hash":{"t":[{"value":"0,9.97","unit":"npt","start":"0","end":"9.97"}]}}
+TC0005-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,7	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0006-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,15	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3,15","unit":"npt","start":"3","end":"15"}]}}
+TC0009-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=15,20	UA seeks to the end of the media resource.	{"query":{},"hash":{"t":[{"value":"15,20","unit":"npt","start":"15","end":"20"}]}}
+TC0011-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3","unit":"npt","start":"3","end":""}]}}
+TC0012-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0014-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=15	UA seeks to the end of the media resource.	{"query":{},"hash":{"t":[{"value":"15","unit":"npt","start":"15","end":""}]}}
+TC0015-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=,7	Playback from the beginning to 7 seconds	{"query":{},"hash":{"t":[{"value":",7","unit":"npt","start":"","end":"7"}]}}
+TC0017-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=,15	Playback of the entire media resource	{"query":{},"hash":{"t":[{"value":",15","unit":"npt","start":"","end":"15"}]}}
+TC0018-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=smpte:0:00:03,0:00:07	Playback from the frame marked with timecode 00:00:03 in smpte-30 to the frame marked with timecode 00:00:07 in smpte-30.	{"query":{},"hash":{"t":[{"value":"smpte:0:00:03,0:00:07","unit":"smpte","start":"0:00:03","end":"0:00:07"}]}}
+TC0019-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=smpte:0:00:03.15,0:00:07	Playback from the frame marked with timecode 00:00:03 in smpte-30 to the frame marked with timecode 00:00:07 in smpte-30	{"query":{},"hash":{"t":[{"value":"smpte:0:00:03.15,0:00:07","unit":"smpte","start":"0:00:03.15","end":"0:00:07"}]}}
+TC0020-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_25fps.webm#t=smpte-25:0:00:03,0:00:07	Playback from the frame marked with timecode 00:00:03 in smpte-25 to the frame marked with timecode 00:00:07 in smpte-25	{"query":{},"hash":{"t":[{"value":"smpte-25:0:00:03,0:00:07","unit":"smpte-25","start":"0:00:03","end":"0:00:07"}]}}
+TC0021-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=smpte-25:0:00:03,0:00:07	Playback of the entire media resource.	{"query":{},"hash":{"t":[{"value":"smpte-25:0:00:03,0:00:07","unit":"smpte-25","start":"0:00:03","end":"0:00:07"}]}}
+TC0022-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=smpte-30:0:00:03,0:00:07	Playback from the frame marked with timecode 00:00:03 in smpte-30 to the frame marked with timecode 00:00:07 in smpte-30	{"query":{},"hash":{"t":[{"value":"smpte-30:0:00:03,0:00:07","unit":"smpte-30","start":"0:00:03","end":"0:00:07"}]}}
+TC0024-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=npt:3,7	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"npt:3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0025-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=clock:2010-10-22T07:33:56Z	Playback from 3 seconds to the end (creation time = 2010-10-22T07:33:53Z)	{"query":{},"hash":{"t":[{"value":"clock:2010-10-22T07:33:56Z","unit":"clock","start":"2010-10-22T07:33:56Z","end":""}]}}
+TC0026-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=clock:2010-10-22T07:33:56+00:20	Playback from 3 seconds to the end (creation time = 2010-10-22T07:33:53Z)	{"query":{},"hash":{"t":[{"value":"clock:2010-10-22T07:33:56+00:20","unit":"clock","start":"2010-10-22T07:33:56+00:20","end":""}]}}
+TC0027-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=banana	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0028-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,banana	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0029-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=banana,7	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0030-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t='3'	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0031-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3-7	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0032-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3:7	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0033-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,7,9	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0034-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t%3D3	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0035-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#%74=3	Playback of from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3","unit":"npt","start":"3","end":""}]}}
+TC0036-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=%33	Playback of from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3","unit":"npt","start":"3","end":""}]}}
+TC0037-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3%2C7	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0038-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=%6Ept:3	Playback of from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"npt:3","unit":"npt","start":"3","end":""}]}}
+TC0039-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=npt%3A3	Playback of from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"npt:3","unit":"npt","start":"3","end":""}]}}
+TC0044-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=-1,3	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0045-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=200,100,200,200	Cropped playback of the media resource. Cropping details: upper left corner: (200,100) pixels, width: 200, height: 200	{"query":{},"hash":{"xywh":[{"value":"200,100,200,200","unit":"pixel","x":"200","y":"100","w":"200","h":"200"}]}}
+TC0046-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=pixel:200,100,200,200	Cropped playback of the media resource. Cropping details: upper left corner: (200,100) pixels, width: 200, height: 200	{"query":{},"hash":{"xywh":[{"value":"pixel:200,100,200,200","unit":"pixel","x":"200","y":"100","w":"200","h":"200"}]}}
+TC0047-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=percent:0,0,50,50	Cropped playback of the media resource. Cropping details: upper left corner: (0,0) pixels, width: 640, height: 360	{"query":{},"hash":{"xywh":[{"value":"percent:0,0,50,50","unit":"percent","x":"0","y":"0","w":"50","h":"50"}]}}
+TC0048-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=200,100,0,0	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0049-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=-200,100,200,200	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0050-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=percent:0,0,150,50	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0051-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3&	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3","unit":"npt","start":"3","end":""}]}}
+TC0052-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#u=12&t=3	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3","unit":"npt","start":"3","end":""}]}}
+TC0053-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=foo:7&t=npt:3	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"npt:3","unit":"npt","start":"3","end":""}]}}
+TC0054-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#&&=&=tom&jerry=&t=3&t=meow:0#	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3","unit":"npt","start":"3","end":""}]}}
+TC0055-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=7&t=3	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"3","unit":"npt","start":"3","end":""}]}}
+TC0056-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#track=4	Playback of track '4' (video only)	{"query":{},"hash":{"track":[{"value":"4","name":"4"}]}}
+TC0057-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#track=foo	Playback of the entire media resource	{"query":{},"hash":{"track":[{"value":"foo","name":"foo"}]}}
+TC0058-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#T=3,7	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0059-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=smpte:00:00:01&t=npt:3	Playback from 3 seconds to the end	{"query":{},"hash":{"t":[{"value":"npt:3","unit":"npt","start":"3","end":""}]}}
+TC0060-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#track=n%40m3%20%26%3D	Playback of track 'n@m3 &='	{"query":{},"hash":{"track":[{"value":"n@m3 &=","name":"n@m3 &="}]}}
+TC0061-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0062-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=.	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0063-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=.0	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0064-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0s	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0065-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=,0s	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0066-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0s,0s	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0067-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=00:00:00s	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0068-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=s	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0069-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=npt:	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0070-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=1e-1	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0071-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=00:00:01.1e-1	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0072-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3.	Playback from 3 seconds to the end	{"query":{},"hash":{}}
+TC0073-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:0:0	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0074-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:00:60	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0075-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:01:60	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0076-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:60:00	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0077-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:000:000	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0078-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=00:00:03,00:00:07	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"00:00:03,00:00:07","unit":"npt","start":"3","end":"7"}]}}
+TC0079-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,00:00:07	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,00:00:07","unit":"npt","start":"3","end":"7"}]}}
+TC0080-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=00:00.	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0081-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:00:00.	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0082-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:00:10e-1	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0083-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:00:60.000	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0084-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=0:60:00.000	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0085-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,7&t=foo	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0086-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#foo&t=3,7	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0087-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,7&foo	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0088-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,7&&	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0089-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#&t=3,7	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0090-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#&&t=3,7	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0091-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#&t=3,7&	Playback from 3 to 7 seconds	{"query":{},"hash":{"t":[{"value":"3,7","unit":"npt","start":"3","end":"7"}]}}
+TC0092-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t%3d10	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0093-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=10%26	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0094-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#t=3,7,	Playback of the entire media resource	{"query":{},"hash":{}}
+TC0095-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=200,100,2000,200	Cropped playback of the media resource. Cropping details: upper left corner: (200,100) pixels, width: 520, height: 200 (because height of the source media is only 720 pixels)	{"query":{},"hash":{"xywh":[{"value":"200,100,2000,200","unit":"pixel","x":"200","y":"100","w":"2000","h":"200"}]}}
+TC0096-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#track=4&track=5	Playback of tracks '4' and '5'	{"query":{},"hash":{"track":[{"value":"4","name":"4"},{"value":"5","name":"5"}]}}
+TC0097-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps_audio_only.webm#xywh=20,20,5,5	Playback of the entire resource	{"query":{},"hash":{"xywh":[{"value":"20,20,5,5","unit":"pixel","x":"20","y":"20","w":"5","h":"5"}]}}
+TC0098-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#xywh=2000,100,200,200	Playback of the entire resource	{"query":{},"hash":{"xywh":[{"value":"2000,100,200,200","unit":"pixel","x":"2000","y":"100","w":"200","h":"200"}]}}
+TC0101-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#id=song1	Playback of the id fragment 'song1', which corresponds to the temporal fragment #t=3,7	{"query":{},"hash":{"id":[{"value":"song1","name":"song1"}]}}
+TC0102-UA	http://www.w3.org/2008/WebVideo/Fragments/media/spatial_30fps.webm#id=foo	Playback of the entire media resource	{"query":{},"hash":{"id":[{"value":"foo","name":"foo"}]}}

@@ -26,7 +26,7 @@ var MediaFragments = (function(window) {
   var SEPARATOR = '&';  
   
   // report errors?
-  var VERBOSE = false;
+  var VERBOSE = true;
   
   var logWarning = function(message) {
     if (VERBOSE) {
@@ -34,51 +34,75 @@ var MediaFragments = (function(window) {
     }
   }
   
-  // the currently supported media fragments dimensions are: t, xywh, track, chapter
+  // the currently supported media fragments dimensions are: t, xywh, track, id
   // allows for O(1) checks for existence of valid keys
   var dimensions = {
     t: function(value) {          
       var components = value.split(',');
+      if (components.length > 2) {
+        return false;
+      }
       var start = components[0]? components[0] : '';
       var end = components[1]? components[1] : '';
-      
+      if ((start === '' && end === '') ||
+          (start && !end && value.indexOf(',') !== -1)) {
+        return false;
+      }
       var nptSeconds = /^((npt\:)?\d+(\.\d+)?)?$/;
       var nptHoursMinutesSeconds = /^((npt\:)?((\d+)\:)?(\d\d)\:(\d\d)(\.\d+)?)?$/;
-      var smpte = /^(\d\:\d\d\:\d\d(\:\d\d(\.\d\d)?)?)?$/;
+      
+      // converts hh:mm:ss.ms to ss.ms
+      function convertHoursMinutesSecondsToSeconds(time) {
+        var hours =
+            parseInt(time.replace(nptHoursMinutesSeconds, '$4'), 10);
+        if (isNaN(hours)) {
+          hours = 0;
+        }    
+        var minutes =
+            parseInt(time.replace(nptHoursMinutesSeconds, '$5'), 10);
+        if (isNaN(minutes)) {
+          minutes = 0;
+        }     
+        console.log(minutes)           
+        if (minutes > 59) {
+          logWarning('Please ensure that minutes <= 59.');                
+          return false;
+        }                
+        var seconds =
+            parseInt(time.replace(nptHoursMinutesSeconds, '$6'), 10);
+        if (isNaN(seconds)) {
+          seconds = 0;
+        }        
+        console.log(seconds)                       
+        if (seconds > 59) {
+          logWarning('Please ensure that seconds <= 59.');                
+          return false;
+        }                        
+        var milliseconds = time.replace(nptHoursMinutesSeconds, '$7');            
+        var result =
+            ((hours * 3600) + (minutes * 60) + (seconds)).toString() +
+            milliseconds;                
+        return result;            
+      }
+      
+      var smpte = /^(\d\:\d\d\:\d\d(\.\d\d)?)?$/;
       // regexp adapted from http://delete.me.uk/2005/03/iso8601.html
       var wallClock = /^((\d{4})(-(\d{2})(-(\d{2})(T(\d{2})\:(\d{2})(\:(\d{2})(\.(\d+))?)?(Z|(([-\+])(\d{2})\:(\d{2})))?)?)?)?)?$/;
-
       if ((nptSeconds.test(start) || nptHoursMinutesSeconds.test(start)) &&
           (nptSeconds.test(end) || nptHoursMinutesSeconds.test(end))) {
+        start = start.replace(/^npt\:/, '');
         if (start && end) {
-          // converts hh:mm:ss.ms to ss.ms
-          function convertHoursMinutesSecondsToSeconds(time) {
-            var hours =
-                parseInt(time.replace(nptHoursMinutesSeconds, '$4'), 10);
-            if (isNaN(hours)) {
-              hours = 0;
-            }    
-            var minutes =
-                parseInt(time.replace(nptHoursMinutesSeconds, '$5'), 10);
-            if (isNaN(minutes)) {
-              minutes = 0;
-            }                
-            var seconds =
-                parseInt(time.replace(nptHoursMinutesSeconds, '$6'), 10);
-            if (isNaN(seconds)) {
-              seconds = 0;
-            }                
-            var milliseconds = time.replace(nptHoursMinutesSeconds, '$7');            
-            var result =
-                ((hours * 3600) + (minutes * 60) + (seconds)).toString() +
-                milliseconds;                
-            return result;            
-          }
           if (nptHoursMinutesSeconds.test(start)) {
             start = convertHoursMinutesSecondsToSeconds(start);
+            if (!start) {
+              return false;
+            }
           }
           if (nptHoursMinutesSeconds.test(end)) {
             end = convertHoursMinutesSecondsToSeconds(end);
+            if (!end) {
+              return false;
+            }
           }   
           if (parseFloat(start) < parseFloat(end)) {    
             return {
@@ -91,11 +115,30 @@ var MediaFragments = (function(window) {
             logWarning('Please ensure that start < end.');                
             return false;
           }
-        } else {
+        } else if (start && !end) {
+          if (nptHoursMinutesSeconds.test(start)) {
+            start = convertHoursMinutesSecondsToSeconds(start);
+            if (!start) {
+              return false;
+            }
+          }
           return {
             value: value,
             unit: 'npt',
             start: start,
+            end: ''
+          };
+        } else if (end && !start) {
+          if (nptHoursMinutesSeconds.test(end)) {
+            end = convertHoursMinutesSecondsToSeconds(end);
+            if (!end) {
+              return false;
+            }
+          }
+          return {
+            value: value,
+            unit: 'npt',
+            start: '',
             end: end
           };
         }
@@ -165,14 +208,19 @@ var MediaFragments = (function(window) {
       var w = values[2];
       var h = values[3];                              
       if (pixelCoordinates.test(value)) {             
-        return {
-          value: value,
-          unit: 'pixel',          
-          x: x,
-          y: y,
-          w: w,
-          h: h
-        };
+        if (w > 0 && h > 0) {
+          return {
+            value: value,
+            unit: 'pixel',          
+            x: x,
+            y: y,
+            w: w,
+            h: h
+          };
+        } else {
+          logWarning('Please ensure that w > 0 and h > 0');                
+          return false;          
+        }
       } else if (percentSelection.test(value)) {
         /**
          * checks for valid percent selections
@@ -215,6 +263,12 @@ var MediaFragments = (function(window) {
       }
     },
     track: function(value) {
+      return {
+        value: value,
+        name: value
+      };
+    },
+    id: function(value) {
       return {
         value: value,
         name: value
@@ -263,11 +317,16 @@ var MediaFragments = (function(window) {
       if (!value) {
         return;
       }                        
-      // keys may appear more than once, thus store all values in an array
+      // keys may appear more than once, thus store all values in an array,
+      // the exception being &t
       if (!keyValues[key]) {
         keyValues[key] = [];
       }
-      keyValues[key].push(value);
+      if (key !== 't') {
+        keyValues[key].push(value);
+      } else {
+        keyValues[key][0] = value;
+      }
     });
     return keyValues;
   }  
