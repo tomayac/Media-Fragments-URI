@@ -124,8 +124,8 @@ var MediaFragments = (function(window) {
               unit: 'npt',
               start: start,
               end: end,
-              startNormalized: startNormalized,
-              endNormalized: endNormalized              
+              startNormalized: startNormalized === false ? '' : startNormalized,
+              endNormalized: endNormalized === false ? '' : endNormalized,
             };
           } else {
             logWarning('Please ensure that start or end are legal.');                                                      
