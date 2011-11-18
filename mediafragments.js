@@ -100,14 +100,17 @@ var MediaFragments = (function(window) {
           }    
           return hours * 3600 + minutes * 60 + seconds;
         };
-
+        var startNormalized = convertToSeconds(start);
+        var endNormalized = convertToSeconds(end);
         if (start && end) {
-          if (convertToSeconds(start) < convertToSeconds(end)) {
+          if (startNormalized < endNormalized) {
             return {
               value: value,
               unit: 'npt',
               start: start,
-              end: end
+              end: end,
+              startNormalized: startNormalized,
+              endNormalized: endNormalized
             };
           } else {
             logWarning('Please ensure that start < end.');                                                      
@@ -120,7 +123,9 @@ var MediaFragments = (function(window) {
               value: value,
               unit: 'npt',
               start: start,
-              end: end
+              end: end,
+              startNormalized: startNormalized,
+              endNormalized: endNormalized              
             };
           } else {
             logWarning('Please ensure that start or end are legal.');                                                      
@@ -382,6 +387,9 @@ var MediaFragments = (function(window) {
   }  
   
   return {
+    parse: function(opt_uri) {
+      return MediaFragments.parseMediaFragmentsUri(opt_uri);
+    },
     parseMediaFragmentsUri: function(opt_uri) {    
       var uri = opt_uri? opt_uri : window.location.href;
       // retrieve the query part of the URI    
