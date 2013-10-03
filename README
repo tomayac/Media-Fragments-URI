@@ -2,6 +2,7 @@ issues:
 1. uri should use protocol http or https
 2. use better uri parsing regex
 3. consider the media fragments implemented by video sharing platforms, such as youtube
+4. seconds should be bigger than 60 as long as minutes and hours are empty
 
 mediafragments.js - written 2011 by Thomas Steiner, Google.
 (tomac AT google DOT com, @tomayac)
