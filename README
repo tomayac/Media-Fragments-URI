@@ -1,18 +1,23 @@
-issues:
-1. uri should use protocol http or https
-2. use better uri parsing regex
-3. consider the media fragments implemented by video sharing platforms, such as youtube
-4. seconds should be bigger than 60 as long as minutes and hours are empty
-
-mediafragments.js - written 2011 by Thomas Steiner, Google.
-(tomac AT google DOT com, @tomayac)
-
-Released under the CC0 1.0 Universal (CC0 1.0) license.
-(http://creativecommons.org/publicdomain/zero/1.0/)
+An extension of mediafragment.js (by Thomas Steiner, Google)
 
 Media Fragments URI is a W3C specification with the objective to provide for
 media-format independent, standard means of addressing media fragments on the
 Web using Uniform Resource Identifiers (URIs).
 (http://www.w3.org/2008/WebVideo/Fragments/)
 
-You can see mediafragments.js in action at http://tomayac.com/mediafragments/mediafragments.html.
+Many video sharing platforms have already implemented their own means of media fragments, such as the following URIs
+
+http://www.youtube.com/watch?v=Wm15rvkifPc#t=120
+http://www.dailymotion.com/video/xjwusq?start=120
+http://vimeo.com/812027#t=214
+
+They are not strictly following the Media Fragment URI specification. But it is also useful to extend the original parser to be able to extract media fragment information from those URIs
+
+features:
+1. uri should use protocol http or https
+2. use better uri parsing regex
+3. consider the media fragments implemented by video sharing platforms, such as youtube
+4. seconds should be bigger than 60 as long as minutes and hours are empty
+
+Released under the CC0 1.0 Universal (CC0 1.0) license.
+(http://creativecommons.org/publicdomain/zero/1.0/)
