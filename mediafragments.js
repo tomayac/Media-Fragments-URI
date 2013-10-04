@@ -1,6 +1,101 @@
+//Known implemented multimedia sharing apps:
+// Youtube: #t=1h20m1s or #t=3902 or query with the same syntax
+// Dailymotion: ?start=1234
+// Vimeo: #t=1234
+
+//tested media fragment uris
+// pass http://www.youtube.com/watch?v=Wm15rvkifPc#t=120
+// pass http://www.youtube.com/watch?v=Wm15rvkifPc?pass http://www.youtube.com/watch?v=Wm15rvkifPc#t=120t=120
+// pass http://www.youtube.com/watch?v=Wm15rvkifPc&t=1h9m20s
+// pass http://www.youtube.com/watch?v=Wm15rvkifPc#t=1h9m20s
+// fail http://www.youtube.com/watch?v=Wm15rvkifPc#t=1h96m20s
+// fail http://www.youtube.com/watch?v=Wm15rvkifPc#t=1h6m80s
+
+// pass http://www.dailymotion.com/video/xjwusq&start=120
+// pass http://www.dailymotion.com/video/xjwusq?start=120
+
+// pass http://example.com/example.webm?t=clock:2011-10-01T23:00:45.123Z,2011-10-01T23:00:45.123Z#xywh=pixel:10,10,30,30
+
+// pass http://vimeo.com/812027#t=214
+
+// pass http://www.viddler.com/v/bb2a72e9?offset=12.083&secret=32758627
+
+// pass http://www.tudou.com/listplay/H9hyQbAj4NM/2tzZHTtq4GA.html?lvt=30
+
+//hulu.com Someone in U.S. can test for me?
+//mobento
+//youku cannot load
+
 var MediaFragments = (function(window) {
   
   //  "use strict";  
+
+  // Yunjia Li:
+  // Reuse parseUri 1.2.2
+  // (c) Steven Levithan <stevenlevithan.com>
+  // MIT License
+
+  var parseUri = function(str){
+    var options = {
+      strictMode: false,
+      key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+      q:   {
+        name:   "queryKey",
+        parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+      },
+      parser: {
+        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+        loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+      }
+    };
+    var o   = options,
+      m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+      uri = {},
+      i   = 14;
+
+    while (i--) uri[o.key[i]] = m[i] || "";
+
+    uri[o.q.name] = {};
+    uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+      if ($1) uri[o.q.name][$1] = $2;
+    });
+
+    return uri;
+  };
+
+  // Yunjia Li: convert ZhYmXs youtube time fragment format to hh:mm:ss
+  var hmsToNPT = function(str){
+    var hhmmssRaw = str.toLowerCase().replace("s",'').replace("m",":").replace("h",":");
+    var hhmmssArr = hhmmssRaw.split(":");
+    var npt="";
+    for (var i =0;i<hhmmssArr.length;i++)
+    {
+      var t = hhmmssArr[i]
+      if(t.length == 1)
+      {
+        t="0"+t;
+      }
+      npt+=t;
+      if(i!==hhmmssArr.length-1)
+        npt+=":";
+    }
+    return npt;
+  }
+
+  // Yunjia Li: map the attributes used in various website into the Media Fragment specification
+  var mapAttributes = function(key,host){
+    // Yunjia Li: for dailymotion media fragment &start=seconds
+    if (key === "start" && (host.indexOf("dailymotion")!==-1 || host.indexOf("dai.ly")!==-1))
+      return "t"
+    else if (key === "offset" && host.indexOf("viddler")!==-1) {
+      return "t"
+    }
+    else if (key === "lvt" && host.indexOf("tudou")!==-1) {
+      return "t"
+    }
+    else
+      return key;
+  }
   
   if (!Array.prototype.forEach) {
     Array.prototype.forEach = function(fun /*, thisp */) {
@@ -43,6 +138,11 @@ var MediaFragments = (function(window) {
         return false;
       }
       var start = components[0]? components[0] : '';
+      // Yunjia Li: if XhYmZs format, e.g. YouTube time format such as 1m2s
+      if(start.indexOf("s") !== -1)
+        start = hmsToNPT(start); 
+
+      // Yunjia Li: No media as far as I know support end time yet, so ignore the hmsToNPT function
       var end = components[1]? components[1] : '';
       if ((start === '' && end === '') ||
           (start && !end && value.indexOf(',') !== -1)) {
@@ -86,15 +186,19 @@ var MediaFragments = (function(window) {
           } else {
             return false;
           }
-          if (hours > 23) {
-            logWarning('Please ensure that hours <= 23.');                      
-            return false;              
-          }          
+          
+          // Yunjia Li: hours could be bigger than 23 hours
+          //if (hours > 23) {
+          //  logWarning('Please ensure that hours <= 23.');                      
+          //  return false;              
+          //}         
+
           if (minutes > 59) {
             logWarning('Please ensure that minutes <= 59.');                      
             return false;
           }
-          if (seconds >= 60) {
+          if (seconds >= 60 && 
+            (hours !== 0 || minutes !== 0)) {
             logWarning('Please ensure that seconds < 60.');                      
             return false;
           }    
@@ -220,6 +324,7 @@ var MediaFragments = (function(window) {
       }
       // regexp adapted from http://delete.me.uk/2005/03/iso8601.html
       var wallClock = /^((\d{4})(-(\d{2})(-(\d{2})(T(\d{2})\:(\d{2})(\:(\d{2})(\.(\d+))?)?(Z|(([-\+])(\d{2})\:(\d{2})))?)?)?)?)?$/;      
+      console.log("start:"+start);
       start = start.replace('clock:', '');
       if ((wallClock.test(start)) && (wallClock.test(end))) {
         // the last condition is to ensure ISO 8601 date conformance.
@@ -339,8 +444,9 @@ var MediaFragments = (function(window) {
   
   /**
    * splits an octet string into allowed key-value pairs
+   * Yunjia Li: add uriComponents
    */
-  var splitKeyValuePairs = function(octetString) {
+  var splitKeyValuePairs = function(octetString, uriComponents) {
     var keyValues = {};
     var keyValuePairs = octetString.split(SEPARATOR);    
     keyValuePairs.forEach(function(keyValuePair) {      
@@ -358,7 +464,8 @@ var MediaFragments = (function(window) {
         return;
       }
       // the key name needs to be decoded
-      var key = decodeURIComponent(components[0]);
+      var key = mapAttributes(decodeURIComponent(components[0]), uriComponents.host);
+
       // only allow keys that are currently supported media fragments dimensions
       var dimensionChecker = dimensions[key];
       // the value needs to be decoded
@@ -392,17 +499,43 @@ var MediaFragments = (function(window) {
     },
     parseMediaFragmentsUri: function(opt_uri) {    
       var uri = opt_uri? opt_uri : window.location.href;
-      // retrieve the query part of the URI    
-      var indexOfHash = uri.indexOf('#');
-      var indexOfQuestionMark = uri.indexOf('?');
-      var end = (indexOfHash !== -1? indexOfHash : uri.length);
-      var query = indexOfQuestionMark !== -1?
-          uri.substring(indexOfQuestionMark + 1, end) : '';
+      // retrieve the query part of the URI 
+      var uriComponents = parseUri(uri); 
+
+       //Yunjia Li: seems a weired bug for dailymotion, the start query is not after a questionmark in uri but right attached as &start:
+      if((uriComponents.host.indexOf("dailymotion.com") !== -1 || uriComponents.host.indexOf("dai.ly") !== -1)&&
+          uriComponents.path.indexOf("?") === -1 && uriComponents.path.indexOf("&start=") !== -1){ //treat such as an uri query
+        uri = uri.replace("&start=","?start=");
+        uriComponents = parseUri(uri);
+      }
+
+
+      //var indexOfHash = uri.indexOf('#');
+      //var indexOfQuestionMark = uri.indexOf('?');
+      //var end = (indexOfHash !== -1? indexOfHash : uri.length);
+      //var query = indexOfQuestionMark !== -1?
+      //    uri.substring(indexOfQuestionMark + 1, end) : '';
       // retrieve the hash part of the URI
-      var hash = indexOfHash !== -1? uri.substring(indexOfHash + 1) : '';
-      var queryValues = splitKeyValuePairs(query);
-      var hashValues = splitKeyValuePairs(hash);
+      //var hash = indexOfHash !== -1? uri.substring(indexOfHash + 1) : '';
+
+      var query = "",
+          hash = "",
+          queryValues = {},
+          hashValues = {};
+
+      // Yunjia Li: check first if the protocal of the uri is http or https
+      if(uriComponents.protocol !== "http" && uriComponents.protocol !== "https"){
+        logWarning("Invalid URI: The URI should use http or https protocol");
+      }
+      else{
+        query = uriComponents.query;
+        hash = uriComponents.anchor;
+        queryValues = splitKeyValuePairs(query, uriComponents);
+        hashValues = splitKeyValuePairs(hash, uriComponents);
+      }
+
       return {
+        provider: uriComponents.host,
         query: queryValues,
         hash: hashValues,
         toString: function() {
@@ -431,6 +564,7 @@ var MediaFragments = (function(window) {
             return s;
           }
           var string =
+              'Provider:'+uriComponents.host+
               buildString('Query', queryValues) +
               buildString('Hash', hashValues);
           return string; 
