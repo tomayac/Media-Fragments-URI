@@ -11,7 +11,8 @@ http://www.youtube.com/watch?v=Wm15rvkifPc#t=120
 http://www.dailymotion.com/video/xjwusq?start=120
 http://vimeo.com/812027#t=214
 
-They are not strictly following the Media Fragment URI specification. But it is also useful to extend the original parser to be able to extract media fragment information from those URIs
+They are not strictly following the Media Fragment URI specification. 
+But it is also useful to extend the original parser to be able to extract media fragment information from those URIs.
 
 features:
 1. uri should use protocol http or https
