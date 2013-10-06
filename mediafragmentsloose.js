@@ -38,7 +38,7 @@
 // ==== 56.com =======
 // pass http://www.56.com/u92/v_OTgwMTk4NDk.html#st=737
 
-// ==== vbox7.com bulgarian=======
+// ==== vbox7.com =======
 // pass http://vbox7.com/play:8f5daa4c00?start=200
 
 
@@ -94,9 +94,6 @@
 //videolog no
 //videoosh no
 //viki no, but timed comments
-//vzaar no, not a video hosting site
-//wildscreen.tv no
-
 
 var MediaFragmentsLoose = (function(window) {
   
