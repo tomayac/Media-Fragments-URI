@@ -1,102 +1,82 @@
-//Known implemented multimedia sharing apps:
-// Youtube: #t=1h20m1s or #t=3902 or query with the same syntax
-// Dailymotion: ?start=1234
-// Vimeo: #t=1234
+(function(exports){
+  exports.parse=function(opt_uri) {
+      return this.parseMediaFragmentsUri(opt_uri);
+  };
+  exports.parseMediaFragmentsUri=function(opt_uri) {    
+    var uri = opt_uri? opt_uri : window.location.href;
+    // retrieve the query part of the URI 
+    var uriComponents = parseUri(uri); 
 
-//tested media fragment uris
-// ==== YouTube =======
-// ==== youtube.com, youtu.be=====
-// pass http://www.youtube.com/watch?v=Wm15rvkifPc#t=120
-// pass http://www.youtube.com/watch?v=Wm15rvkifPc?pass http://www.youtube.com/watch?v=Wm15rvkifPc#t=120t=120
-// pass http://www.youtube.com/watch?v=Wm15rvkifPc&t=1h9m20s
-// pass http://www.youtube.com/watch?v=Wm15rvkifPc#t=1h9m20s
-// fail http://www.youtube.com/watch?v=Wm15rvkifPc#t=1h96m20s
-// fail http://www.youtube.com/watch?v=Wm15rvkifPc#t=1h6m80s
-
-// ==== Dailymotion =======
-// ==== dailymotion.com, dai.ly=====
-// pass http://www.dailymotion.com/video/xjwusq&start=120
-// pass http://www.dailymotion.com/video/xjwusq?start=120
-
-// ==== Anyfile =======
-// pass http://example.com/example.webm?t=clock:2011-10-01T23:00:45.123Z,2011-10-01T23:00:45.123Z#xywh=pixel:10,10,30,30
-
-// ==== Vimeo =======
-// ==== vimeo.com=====
-// pass http://vimeo.com/812027#t=214
-
-// ==== viddler =======
-// pass http://www.viddler.com/v/bb2a72e9?offset=12.083&secret=32758627
-
-// ==== tudou =======
-// pass http://www.tudou.com/listplay/H9hyQbAj4NM/2tzZHTtq4GA.html?lvt=30
-
-// ==== youku =======
-// ==== youku.com, youku.tv=====
-// pass http://v.youku.com/v_show/id_XNjE2OTQ0MTI4.html?ev=5&firsttime=147
-
-// ==== 56.com =======
-// pass http://www.56.com/u92/v_OTgwMTk4NDk.html#st=737
-
-// ==== vbox7.com =======
-// pass http://vbox7.com/play:8f5daa4c00?start=200
+     //Yunjia Li: seems a weired bug for dailymotion, the start query is not after a questionmark in uri but right attached as &start:
+    if((uriComponents.host.indexOf("dailymotion.com") !== -1 || uriComponents.host.indexOf("dai.ly") !== -1)&&
+        uriComponents.path.indexOf("?") === -1 && uriComponents.path.indexOf("&start=") !== -1){ //treat such as an uri query
+      uri = uri.replace("&start=","?start=");
+      uriComponents = parseUri(uri);
+    }
 
 
-//Afreeca sorry don't know Korean
-//Archive.org no
-//blip.tv no
-//blogTV = younow no
-//break.com no
-//buzznet no
-//comedy.com no
-//crackle no
-//dacast no
-//EngageMedia no
-//ExpoTV no
-//Facebook video no
-//funnyordie.com
-//funshion no
-//flickr no
-//fotki no
-//godtube no
-//hulu.com Someone in U.S. can test for me?
-//lafango no
-//LeTV no
-//liveleak no
-//Mail.ru no
-//MaYoMo domain expire
-//Mefeedia, only in U.S. same as Hulu
-//metacafe no
-//mobento no
-//mevio no
-//myspace no
-//MyVideo no
-//muzu.tv no
-//nico nico douga no
-//OneWorldTV no, not a video hosting site
-//OpenFilm no
-//ourmedia no, not a video hosting site
-//panopto no, not public video
-//photobucket no
-//reeltime no, not video hosting site
-//rutube.ru no
-//Sapo Videos no
-//SchoolTube no
-//ScienceStage no
-//Sevenload no
-//SmugMug no, not a video hosting site
-//Tape.tv no, not available in UK
-//ted no
-//trilulilu no
-//tropptube no, not a video hosting site
-//veoh.com no
-//videojug no
-//videolog no
-//videoosh no
-//viki no, but timed comments
+    //var indexOfHash = uri.indexOf('#');
+    //var indexOfQuestionMark = uri.indexOf('?');
+    //var end = (indexOfHash !== -1? indexOfHash : uri.length);
+    //var query = indexOfQuestionMark !== -1?
+    //    uri.substring(indexOfQuestionMark + 1, end) : '';
+    // retrieve the hash part of the URI
+    //var hash = indexOfHash !== -1? uri.substring(indexOfHash + 1) : '';
 
-var MediaFragmentsLoose = (function(window) {
-  
+    var query = "",
+        hash = "",
+        queryValues = {},
+        hashValues = {};
+
+    // Yunjia Li: check first if the protocal of the uri is http or https
+    if(uriComponents.protocol !== "http" && uriComponents.protocol !== "https"){
+      logWarning("Invalid URI: The URI should use http or https protocol");
+    }
+    else{
+      query = uriComponents.query;
+      hash = uriComponents.anchor;
+      queryValues = splitKeyValuePairs(query, uriComponents);
+      hashValues = splitKeyValuePairs(hash, uriComponents);
+    }
+
+    return {
+      provider: uriComponents.host,
+      query: queryValues,
+      hash: hashValues,
+      toString: function() {
+        var buildString = function(name, thing) {
+          var s = '\n[' + name + ']:\n';
+          if(!Object.keys) Object.keys = function(o){            
+            if (o !== Object(o)) {
+              throw new TypeError('Object.keys called on non-object');
+            }
+            var ret = [], p;
+            for (p in o) {
+              if (Object.prototype.hasOwnProperty.call(o,p)) ret.push(p);
+            }
+            return ret;
+          }            
+          Object.keys(thing).forEach(function(key) {
+            s += '  * ' + key + ':\n';
+            thing[key].forEach(function(value) {
+              s += '    [\n';
+              Object.keys(value).forEach(function(valueKey) {
+                s += '      - ' + valueKey + ': ' + value[valueKey] + '\n';
+              });
+              s += '   ]\n';
+            }); 
+          });
+          return s;
+        }
+        var string =
+            'Provider:'+uriComponents.host+
+            buildString('Query', queryValues) +
+            buildString('Hash', hashValues);
+        return string; 
+      }      
+    };
+  };
+
   //  "use strict";  
 
   // Yunjia Li:
@@ -569,84 +549,8 @@ var MediaFragmentsLoose = (function(window) {
     });
     return keyValues;
   }  
+
+})(typeof exports === 'undefined'? this['MediaFragmentsLoose']={}: exports);
   
-  return {
-    parse: function(opt_uri) {
-      return MediaFragments.parseMediaFragmentsUri(opt_uri);
-    },
-    parseMediaFragmentsUri: function(opt_uri) {    
-      var uri = opt_uri? opt_uri : window.location.href;
-      // retrieve the query part of the URI 
-      var uriComponents = parseUri(uri); 
-
-       //Yunjia Li: seems a weired bug for dailymotion, the start query is not after a questionmark in uri but right attached as &start:
-      if((uriComponents.host.indexOf("dailymotion.com") !== -1 || uriComponents.host.indexOf("dai.ly") !== -1)&&
-          uriComponents.path.indexOf("?") === -1 && uriComponents.path.indexOf("&start=") !== -1){ //treat such as an uri query
-        uri = uri.replace("&start=","?start=");
-        uriComponents = parseUri(uri);
-      }
-
-
-      //var indexOfHash = uri.indexOf('#');
-      //var indexOfQuestionMark = uri.indexOf('?');
-      //var end = (indexOfHash !== -1? indexOfHash : uri.length);
-      //var query = indexOfQuestionMark !== -1?
-      //    uri.substring(indexOfQuestionMark + 1, end) : '';
-      // retrieve the hash part of the URI
-      //var hash = indexOfHash !== -1? uri.substring(indexOfHash + 1) : '';
-
-      var query = "",
-          hash = "",
-          queryValues = {},
-          hashValues = {};
-
-      // Yunjia Li: check first if the protocal of the uri is http or https
-      if(uriComponents.protocol !== "http" && uriComponents.protocol !== "https"){
-        logWarning("Invalid URI: The URI should use http or https protocol");
-      }
-      else{
-        query = uriComponents.query;
-        hash = uriComponents.anchor;
-        queryValues = splitKeyValuePairs(query, uriComponents);
-        hashValues = splitKeyValuePairs(hash, uriComponents);
-      }
-
-      return {
-        provider: uriComponents.host,
-        query: queryValues,
-        hash: hashValues,
-        toString: function() {
-          var buildString = function(name, thing) {
-            var s = '\n[' + name + ']:\n';
-            if(!Object.keys) Object.keys = function(o){            
-              if (o !== Object(o)) {
-                throw new TypeError('Object.keys called on non-object');
-              }
-              var ret = [], p;
-              for (p in o) {
-                if (Object.prototype.hasOwnProperty.call(o,p)) ret.push(p);
-              }
-              return ret;
-            }            
-            Object.keys(thing).forEach(function(key) {
-              s += '  * ' + key + ':\n';
-              thing[key].forEach(function(value) {
-                s += '    [\n';
-                Object.keys(value).forEach(function(valueKey) {
-                  s += '      - ' + valueKey + ': ' + value[valueKey] + '\n';
-                });
-                s += '   ]\n';
-              }); 
-            });
-            return s;
-          }
-          var string =
-              'Provider:'+uriComponents.host+
-              buildString('Query', queryValues) +
-              buildString('Hash', hashValues);
-          return string; 
-        }      
-      };
-    }
-  }
-})(window);
+  
+ 
