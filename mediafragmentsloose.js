@@ -1,8 +1,17 @@
 (function(exports){
-  exports.parse=function(opt_uri) {
-      return this.parseMediaFragmentsUri(opt_uri);
+  exports.parse=function(opt_uri, options) {
+      var newOptions = {parseId:true, parseTrack:true, parseChapter:true};
+      if(options!==undefined){
+        if(options.parseId !== undefined)
+          newOptions.parseId = options.parseId;
+        if(options.parseTrack !== undefined)
+          newOptions.parseTrack = options.parseTrack;
+        if(options.parseChapter !== undefined)
+          newOptions.parseChapter = options.parseChapter;
+      }
+      return parseMediaFragmentsUri(opt_uri,newOptions);
   };
-  exports.parseMediaFragmentsUri=function(opt_uri) {    
+  var parseMediaFragmentsUri=function(opt_uri,options) {    
     var uri = opt_uri? opt_uri : window.location.href;
     // retrieve the query part of the URI 
     var uriComponents = parseUri(uri); 
@@ -29,14 +38,14 @@
         hashValues = {};
 
     // Yunjia Li: check first if the protocal of the uri is http or https
-    if(uriComponents.protocol !== "http" && uriComponents.protocol !== "https"){
-      logWarning("Invalid URI: The URI should use http or https protocol");
+    if(uriComponents.protocol !== "http" && uriComponents.protocol !== "https" && uriComponents.protocol!=="rtsp"){
+      logWarning("Invalid URI protocol");
     }
     else{
       query = uriComponents.query;
       hash = uriComponents.anchor;
-      queryValues = splitKeyValuePairs(query, uriComponents);
-      hashValues = splitKeyValuePairs(hash, uriComponents);
+      queryValues = splitKeyValuePairs(query, uriComponents,options);
+      hashValues = splitKeyValuePairs(hash, uriComponents,options);
     }
 
     return {
@@ -503,7 +512,7 @@
    * splits an octet string into allowed key-value pairs
    * Yunjia Li: add uriComponents
    */
-  var splitKeyValuePairs = function(octetString, uriComponents) {
+  var splitKeyValuePairs = function(octetString, uriComponents,options) {
     var keyValues = {};
     var keyValuePairs = octetString.split(SEPARATOR);    
     keyValuePairs.forEach(function(keyValuePair) {      
@@ -523,8 +532,13 @@
       // the key name needs to be decoded
       var key = mapAttributes(decodeURIComponent(components[0]), uriComponents.host);
 
-      // only allow keys that are currently supported media fragments dimensions
-      var dimensionChecker = dimensions[key];
+      var dimensionChecker;
+      if((key === "id" && options.parseId === false) ||
+        (key === "track" && options.parseTrack === false) ||
+        (key === "chapter" && options.parseChapter === false))
+        dimensionChecker = false
+      else // only allow keys that are currently supported media fragments dimensions
+        dimensionChecker = dimensions[key];
       // the value needs to be decoded
       var value = decodeURIComponent(components[1]);
       if (dimensionChecker) {

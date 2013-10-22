@@ -16,6 +16,7 @@
         CC0 1.0 Universal
       </a> (CC0 1.0) license.
     </p>
+    <p>{parseId:true, parseTrack:true, parseChapter:true}</p>
     <input
         type="text"
         id="uri"
@@ -33,7 +34,7 @@
     <div>
       Yunjia Li (yl2@ecs.soton.ac.uk)
       <br/>
-      <a href="http://twitter.com/tomayac">@afterglowlee</a>
+      <a href="http://twitter.com/afterglowlee">@afterglowlee</a>
     </div>  
     <script type="text/javascript" src="mediafragmentsloose.js"></script>
     <script type="text/javascript">
@@ -41,19 +42,16 @@
       uri.addEventListener('click', function(e) {
         uri.select();
       }, false);    
-      var container1 = document.getElementById('container1');
-      container1.innerHTML =
-          MediaFragmentsLoose.parseMediaFragmentsUri();
       function parse(uri) {
         var container2 = document.getElementById('container2');
         container2.innerHTML =
-            MediaFragmentsLoose.parseMediaFragmentsUri(uri);
+            MediaFragmentsLoose.parse(uri);
         var container3 = document.getElementById('container3');
         container3.addEventListener('click', function(e) {
           container3.select();
         }, false);
         container3.value =
-            JSON.stringify(MediaFragmentsLoose.parseMediaFragmentsUri(uri));            
+            JSON.stringify(MediaFragmentsLoose.parse(uri));            
       }
     </script>    
   </body>
