@@ -540,25 +540,29 @@
       else // only allow keys that are currently supported media fragments dimensions
         dimensionChecker = dimensions[key];
       // the value needs to be decoded
-      var value = decodeURIComponent(components[1]);
-      if (dimensionChecker) {
-        value = dimensionChecker(value);
-      } else {
-        // we had a key that is not part of media fragments
-        return;
-      }
-      if (!value) {
-        return;
-      }                        
-      // keys may appear more than once, thus store all values in an array,
-      // the exception being &t
-      if (!keyValues[key]) {
-        keyValues[key] = [];
-      }
-      if (key !== 't') {
-        keyValues[key].push(value);
-      } else {
-        keyValues[key][0] = value;
+      try{
+        var value = decodeURIComponent(components[1]);
+        if (dimensionChecker) {
+          value = dimensionChecker(value);
+        } else {
+          // we had a key that is not part of media fragments
+          return;
+        }
+        if (!value) {
+          return;
+        }                        
+        // keys may appear more than once, thus store all values in an array,
+        // the exception being &t
+        if (!keyValues[key]) {
+          keyValues[key] = [];
+        }
+        if (key !== 't') {
+          keyValues[key].push(value);
+        } else {
+          keyValues[key][0] = value;
+        }
+      }catch(ex){
+        logWarning(ex);
       }
     });
     return keyValues;
