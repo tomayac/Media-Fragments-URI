@@ -66,9 +66,7 @@ var MediaFragments = (function(window) {
           //    34:56.789
           //       56.789
           //       56
-          var hours;
-          var minutes;
-          var seconds;
+          var hours, minutes, seconds;
           time = time.split(':');          
           var length = time.length;
           if (length === 3) {
@@ -76,13 +74,13 @@ var MediaFragments = (function(window) {
             minutes = parseInt(time[1], 10);            
             seconds = parseFloat(time[2]);
           } else if (length === 2) {
-            var hours = 0;
-            var minutes = parseInt(time[0], 10);
-            var seconds = parseFloat(time[1]);
+            hours = 0;
+            minutes = parseInt(time[0], 10);
+            seconds = parseFloat(time[1]);
           } else if (length === 1) {
-            var hours = 0;
-            var minutes = 0;            
-            var seconds = parseFloat(time[0]);
+            hours = 0;
+            minutes = 0;            
+            seconds = parseFloat(time[0]);
           } else {
             return false;
           }
@@ -94,7 +92,8 @@ var MediaFragments = (function(window) {
             logWarning('Please ensure that minutes <= 59.');                      
             return false;
           }
-          if (seconds >= 60) {
+          if (length > 1 && seconds >= 60) {
+            // this constraint must not be applied if you specify only seconds
             logWarning('Please ensure that seconds < 60.');                      
             return false;
           }    
@@ -125,7 +124,7 @@ var MediaFragments = (function(window) {
               start: start,
               end: end,
               startNormalized: startNormalized === false ? '' : startNormalized,
-              endNormalized: endNormalized === false ? '' : endNormalized,
+              endNormalized: endNormalized === false ? '' : endNormalized
             };
           } else {
             logWarning('Please ensure that start or end are legal.');                                                      
@@ -148,11 +147,8 @@ var MediaFragments = (function(window) {
           // 12:34:56
           // 12:34:56:78
           // 12:34:56:78.90          
-          var hours;
-          var minutes;
-          var seconds;
-          var frames;
-          var subframes;
+          var hours, minutes, seconds;
+          var frames, subframes;
           time = time.split(':');          
           var length = time.length;
           if (length === 3) {
@@ -258,10 +254,10 @@ var MediaFragments = (function(window) {
       var percentSelection = /^percent\:\d+,\d+,\d+,\d+$/;
       
       var values = value.replace(/(pixel|percent)\:/, '').split(','); 
-      var x = values[0];
-      var y = values[1];
-      var w = values[2];
-      var h = values[3];                              
+      var x = parseInt(values[0]);
+      var y = parseInt(values[1]);
+      var w = parseInt(values[2]);
+      var h = parseInt(values[3]);                              
       if (pixelCoordinates.test(value)) {             
         if (w > 0 && h > 0) {
           return {
@@ -298,6 +294,15 @@ var MediaFragments = (function(window) {
             logWarning('Please ensure that 0 <= h <= 100.');                                      
             return false;
           }            
+          if (x + w > 100) {
+            logWarning('Please ensure that x + w <= 100.');
+            return false;
+          }
+          if (y + h > 100) {
+            logWarning('Please ensure that y + h <= 100.');
+            return false;
+          }
+
           return true;            
         });        
         if (checkPercentSelection(x, y, w, h)) {
@@ -335,7 +340,7 @@ var MediaFragments = (function(window) {
         chapter: value
       };
     }
-  }      
+  };      
   
   /**
    * splits an octet string into allowed key-value pairs
@@ -384,7 +389,7 @@ var MediaFragments = (function(window) {
       }
     });
     return keyValues;
-  }  
+  };  
   
   return {
     parse: function(opt_uri) {
