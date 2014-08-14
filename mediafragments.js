@@ -93,7 +93,8 @@ var MediaFragments = (function(window) {
             logWarning('Please ensure that minutes <= 59.');
             return false;
           }
-          if (seconds >= 60) {
+          if (length > 1 && seconds >= 60) {
+            // this constraint must not be applied if you specify only seconds
             logWarning('Please ensure that seconds < 60.');
             return false;
           }
@@ -124,7 +125,7 @@ var MediaFragments = (function(window) {
               start: start,
               end: end,
               startNormalized: startNormalized === false ? '' : startNormalized,
-              endNormalized: endNormalized === false ? '' : endNormalized,
+              endNormalized: endNormalized === false ? '' : endNormalized
             };
           } else {
             logWarning('Please ensure that start or end are legal.');
@@ -256,12 +257,11 @@ var MediaFragments = (function(window) {
       var pixelCoordinates = /^(pixel\:)?\d+,\d+,\d+,\d+$/;
       // "percent:" is obligatory
       var percentSelection = /^percent\:\d+,\d+,\d+,\d+$/;
-
       var values = value.replace(/(pixel|percent)\:/, '').split(',');
-      var x = values[0];
-      var y = values[1];
-      var w = values[2];
-      var h = values[3];
+      var x = parseInt(values[0], 10);
+      var y = parseInt(values[1], 10);
+      var w = parseInt(values[2], 10);
+      var h = parseInt(values[3], 10);
       if (pixelCoordinates.test(value)) {
         if (w > 0 && h > 0) {
           return {
@@ -296,6 +296,14 @@ var MediaFragments = (function(window) {
           }
           if (!((0 <= h) && (h <= 100))) {
             logWarning('Please ensure that 0 <= h <= 100.');
+            return false;
+          }
+          if (x + w > 100) {
+            logWarning('Please ensure that x + w <= 100.');
+            return false;
+          }
+          if (y + h > 100) {
+            logWarning('Please ensure that y + h <= 100.');
             return false;
           }
           return true;
