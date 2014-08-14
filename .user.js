@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name          Media Fragments URI 
+// @name          Media Fragments URI
 // @author        Thomas Steiner
 // @namespace     http://github.com/tomayac
 // @version       0.1.0
@@ -10,11 +10,11 @@
 (function(d) {
   var DEBUG = true;
   var MEDIAFRAGMENTS = 'MEDIAFRAGMENTS';
-  
+
   /////////////////////////////////////////////////////////////////////////////
   var MediaFragments = (function(window) {
 
-    //  "use strict";  
+    //  "use strict";
 
     if (!Array.prototype.forEach) {
       Array.prototype.forEach = function(fun /*, thisp */) {
@@ -37,7 +37,7 @@
     }
 
     // '&' is the only primary separator for key-value pairs
-    var SEPARATOR = '&';  
+    var SEPARATOR = '&';
 
     // report errors?
     var VERBOSE = true;
@@ -46,12 +46,12 @@
       if (VERBOSE) {
         console.log('Media Fragments URI Parsing Warning: ' + message);
       }
-    }
+    };
 
     // the currently supported media fragments dimensions are: t, xywh, track, id
     // allows for O(1) checks for existence of valid keys
     var dimensions = {
-      t: function(value) {          
+      t: function(value) {
         var components = value.split(',');
         if (components.length > 2) {
           return false;
@@ -83,35 +83,35 @@
             var hours;
             var minutes;
             var seconds;
-            time = time.split(':');          
+            time = time.split(':');
             var length = time.length;
             if (length === 3) {
               hours = parseInt(time[0], 10);
-              minutes = parseInt(time[1], 10);            
+              minutes = parseInt(time[1], 10);
               seconds = parseFloat(time[2]);
             } else if (length === 2) {
-              var hours = 0;
-              var minutes = parseInt(time[0], 10);
-              var seconds = parseFloat(time[1]);
+              hours = 0;
+              minutes = parseInt(time[0], 10);
+              seconds = parseFloat(time[1]);
             } else if (length === 1) {
-              var hours = 0;
-              var minutes = 0;            
-              var seconds = parseFloat(time[0]);
+              hours = 0;
+              minutes = 0;
+              seconds = parseFloat(time[0]);
             } else {
               return false;
             }
             if (hours > 23) {
-              logWarning('Please ensure that hours <= 23.');                      
-              return false;              
-            }          
+              logWarning('Please ensure that hours <= 23.');
+              return false;
+            }
             if (minutes > 59) {
-              logWarning('Please ensure that minutes <= 59.');                      
+              logWarning('Please ensure that minutes <= 59.');
               return false;
             }
             if (seconds >= 60) {
-              logWarning('Please ensure that seconds < 60.');                      
+              logWarning('Please ensure that seconds < 60.');
               return false;
-            }    
+            }
             return hours * 3600 + minutes * 60 + seconds;
           };
           var startNormalized = convertToSeconds(start);
@@ -127,9 +127,9 @@
                 endNormalized: endNormalized
               };
             } else {
-              logWarning('Please ensure that start < end.');                                                      
-              return false;            
-            }           
+              logWarning('Please ensure that start < end.');
+              return false;
+            }
           } else {
             if ((convertToSeconds(start) !== false) ||
                 (convertToSeconds(end) !== false)) {
@@ -142,42 +142,42 @@
                 endNormalized: endNormalized === false ? '' : endNormalized,
               };
             } else {
-              logWarning('Please ensure that start or end are legal.');                                                      
+              logWarning('Please ensure that start or end are legal.');
               return false;
             }
           }
         }
         // hours:minutes:seconds:frames.further-subdivison-of-frames
-        var smpte = /^(\d+\:\d\d\:\d\d(\:\d\d(\.\d\d)?)?)?$/;      
+        var smpte = /^(\d+\:\d\d\:\d\d(\:\d\d(\.\d\d)?)?)?$/;
         var prefix = start.replace(/^(smpte(-25|-30|-30-drop)?).*/, '$1');
-        start = start.replace(/^smpte(-25|-30|-30-drop)?\:/, '');      
+        start = start.replace(/^smpte(-25|-30|-30-drop)?\:/, '');
         if ((smpte.test(start)) && (smpte.test(end))) {
           // we interpret frames as milliseconds, and further-subdivison-of-frames
           // as microseconds. this allows for relatively easy comparison.
-          var convertToSeconds = function(time) {
+          var convertToSecondsWithFrames = function(time) {
             if (time === '') {
               return false;
             }
             // possible cases:
             // 12:34:56
             // 12:34:56:78
-            // 12:34:56:78.90          
+            // 12:34:56:78.90
             var hours;
             var minutes;
             var seconds;
             var frames;
             var subframes;
-            time = time.split(':');          
+            time = time.split(':');
             var length = time.length;
             if (length === 3) {
               hours = parseInt(time[0], 10);
-              minutes = parseInt(time[1], 10);            
+              minutes = parseInt(time[1], 10);
               seconds = parseInt(time[2], 10);
               frames = 0;
               subframes = 0;
             } else if (length === 4) {
               hours = parseInt(time[0], 10);
-              minutes = parseInt(time[1], 10);            
+              minutes = parseInt(time[1], 10);
               seconds = parseInt(time[2], 10);
               if (time[3].indexOf('.') === -1) {
                 frames = parseInt(time[3], 10);
@@ -185,55 +185,56 @@
               } else {
                 var frameSubFrame = time[3].split('.');
                 frames = parseInt(frameSubFrame[0], 10);
-                subframes = parseInt(frameSubFrame[1], 10);              
+                subframes = parseInt(frameSubFrame[1], 10);
               }
             } else {
               return false;
             }
             if (hours > 23) {
-              logWarning('Please ensure that hours <= 23.');                      
-              return false;              
-            }          
+              logWarning('Please ensure that hours <= 23.');
+              return false;
+            }
             if (minutes > 59) {
-              logWarning('Please ensure that minutes <= 59.');                      
+              logWarning('Please ensure that minutes <= 59.');
               return false;
             }
             if (seconds > 59) {
-              logWarning('Please ensure that seconds <= 59.');                      
+              logWarning('Please ensure that seconds <= 59.');
               return false;
-            }    
+            }
             return hours * 3600 + minutes * 60 + seconds +
                 frames * 0.001 + subframes * 0.000001;
-          };        
+          };
           if (start && end) {
-            if (convertToSeconds(start) < convertToSeconds(end)) {
+            if (convertToSecondsWithFrames(start) <
+                convertToSecondsWithFrames(end)) {
               return {
                 value: value,
                 unit: prefix,
                 start: start,
                 end: end
-              };            
+              };
             } else {
-              logWarning('Please ensure that start < end.');                                                      
+              logWarning('Please ensure that start < end.');
               return false;
             }
           } else {
-            if ((convertToSeconds(start) !== false) ||
-                (convertToSeconds(end) !== false)) {
+            if ((convertToSecondsWithFrames(start) !== false) ||
+                (convertToSecondsWithFrames(end) !== false)) {
               return {
                 value: value,
                 unit: prefix,
                 start: start,
                 end: end
-              };                      
+              };
             } else {
-              logWarning('Please ensure that start or end are legal.');                                                      
+              logWarning('Please ensure that start or end are legal.');
               return false;
             }
           }
         }
         // regexp adapted from http://delete.me.uk/2005/03/iso8601.html
-        var wallClock = /^((\d{4})(-(\d{2})(-(\d{2})(T(\d{2})\:(\d{2})(\:(\d{2})(\.(\d+))?)?(Z|(([-\+])(\d{2})\:(\d{2})))?)?)?)?)?$/;      
+        var wallClock = /^((\d{4})(-(\d{2})(-(\d{2})(T(\d{2})\:(\d{2})(\:(\d{2})(\.(\d+))?)?(Z|(([-\+])(\d{2})\:(\d{2})))?)?)?)?)?$/;
         start = start.replace('clock:', '');
         if ((wallClock.test(start)) && (wallClock.test(end))) {
           // the last condition is to ensure ISO 8601 date conformance.
@@ -242,15 +243,15 @@
           if (start && end && !isNaN(Date.parse('2009-07-26T11:19:01Z'))) {
             // if both start and end are given, then the start must be before
             // the end
-            if (Date.parse(start) <= Date.parse(end)) {            
+            if (Date.parse(start) <= Date.parse(end)) {
               return {
                 value: value,
                 unit: 'clock',
                 start: start,
                 end: end
-              };            
+              };
             } else {
-              logWarning('Please ensure that start < end.');                                                      
+              logWarning('Please ensure that start < end.');
               return false;
             }
           } else {
@@ -259,10 +260,10 @@
               unit: 'clock',
               start: start,
               end: end
-            };          
+            };
           }
         }
-        logWarning('Invalid time dimension.');                                                
+        logWarning('Invalid time dimension.');
         return false;
       },
       xywh: function(value) {
@@ -271,24 +272,24 @@
         // "percent:" is obligatory
         var percentSelection = /^percent\:\d+,\d+,\d+,\d+$/;
 
-        var values = value.replace(/(pixel|percent)\:/, '').split(','); 
+        var values = value.replace(/(pixel|percent)\:/, '').split(',');
         var x = values[0];
         var y = values[1];
         var w = values[2];
-        var h = values[3];                              
-        if (pixelCoordinates.test(value)) {             
+        var h = values[3];
+        if (pixelCoordinates.test(value)) {
           if (w > 0 && h > 0) {
             return {
               value: value,
-              unit: 'pixel',          
+              unit: 'pixel',
               x: x,
               y: y,
               w: w,
               h: h
             };
           } else {
-            logWarning('Please ensure that w > 0 and h > 0');                                      
-            return false;          
+            logWarning('Please ensure that w > 0 and h > 0');
+            return false;
           }
         } else if (percentSelection.test(value)) {
           /**
@@ -296,38 +297,38 @@
            */
           var checkPercentSelection = (function checkPercentSelection(
               x, y, w, h) {
-            if (!((0 <= x) && (x <= 100))) { 
-              logWarning('Please ensure that 0 <= x <= 100.');                                      
+            if (!((0 <= x) && (x <= 100))) {
+              logWarning('Please ensure that 0 <= x <= 100.');
               return false;
             }
-            if (!((0 <= y) && (y <= 100))) { 
-              logWarning('Please ensure that 0 <= y <= 100.');                                      
+            if (!((0 <= y) && (y <= 100))) {
+              logWarning('Please ensure that 0 <= y <= 100.');
               return false;
             }
-            if (!((0 <= w) && (w <= 100))) { 
-              logWarning('Please ensure that 0 <= w <= 100.');                                      
+            if (!((0 <= w) && (w <= 100))) {
+              logWarning('Please ensure that 0 <= w <= 100.');
               return false;
             }
-            if (!((0 <= h) && (h <= 100))) { 
-              logWarning('Please ensure that 0 <= h <= 100.');                                      
+            if (!((0 <= h) && (h <= 100))) {
+              logWarning('Please ensure that 0 <= h <= 100.');
               return false;
-            }            
-            return true;            
-          });        
+            }
+            return true;
+          });
           if (checkPercentSelection(x, y, w, h)) {
             return {
               value: value,
-              unit: 'percent',          
+              unit: 'percent',
               x: x,
               y: y,
               w: w,
               h: h
             };
           }
-          logWarning('Invalid percent selection.');                                      
+          logWarning('Invalid percent selection.');
           return false;
         } else {
-          logWarning('Invalid spatial dimension.');                                      
+          logWarning('Invalid spatial dimension.');
           return false;
         }
       },
@@ -343,27 +344,27 @@
           name: value
         };
       },
-      chapter: function(value) {          
+      chapter: function(value) {
         return {
           value: value,
           chapter: value
         };
       }
-    }      
+    };
 
     /**
      * splits an octet string into allowed key-value pairs
      */
     var splitKeyValuePairs = function(octetString) {
       var keyValues = {};
-      var keyValuePairs = octetString.split(SEPARATOR);    
-      keyValuePairs.forEach(function(keyValuePair) {      
+      var keyValuePairs = octetString.split(SEPARATOR);
+      keyValuePairs.forEach(function(keyValuePair) {
         // the key part is up to the first(!) occurrence of '=', further '='-s
         // form part of the value
         var position = keyValuePair.indexOf('=');
         if (position < 1) {
           return;
-        } 
+        }
         var components = [
             keyValuePair.substring(0, position),
             keyValuePair.substring(position + 1)];
@@ -385,7 +386,7 @@
         }
         if (!value) {
           return;
-        }                        
+        }
         // keys may appear more than once, thus store all values in an array,
         // the exception being &t
         if (!keyValues[key]) {
@@ -398,15 +399,15 @@
         }
       });
       return keyValues;
-    }  
+    };
 
     return {
       parse: function(opt_uri) {
         return MediaFragments.parseMediaFragmentsUri(opt_uri);
       },
-      parseMediaFragmentsUri: function(opt_uri) {    
+      parseMediaFragmentsUri: function(opt_uri) {
         var uri = opt_uri? opt_uri : window.location.href;
-        // retrieve the query part of the URI    
+        // retrieve the query part of the URI
         var indexOfHash = uri.indexOf('#');
         var indexOfQuestionMark = uri.indexOf('?');
         var end = (indexOfHash !== -1? indexOfHash : uri.length);
@@ -422,7 +423,7 @@
           toString: function() {
             var buildString = function(name, thing) {
               var s = '\n[' + name + ']:\n';
-              if(!Object.keys) Object.keys = function(o){            
+              if(!Object.keys) Object.keys = function(o){
                 if (o !== Object(o)) {
                   throw new TypeError('Object.keys called on non-object');
                 }
@@ -431,7 +432,7 @@
                   if (Object.prototype.hasOwnProperty.call(o,p)) ret.push(p);
                 }
                 return ret;
-              }            
+              };
               Object.keys(thing).forEach(function(key) {
                 s += '  * ' + key + ':\n';
                 thing[key].forEach(function(value) {
@@ -440,21 +441,21 @@
                     s += '      - ' + valueKey + ': ' + value[valueKey] + '\n';
                   });
                   s += '   ]\n';
-                }); 
+                });
               });
               return s;
-            }
+            };
             var string =
                 buildString('Query', queryValues) +
                 buildString('Hash', hashValues);
-            return string; 
-          }      
+            return string;
+          }
         };
       }
-    }
+    };
   })(window);
   /////////////////////////////////////////////////////////////////////////////
-  
+
   // append mediafragments.js
   /*
   var script = d.createElement('script');
@@ -471,20 +472,20 @@
       var video = e.target;
       video.addEventListener('loadedmetadata', function(event) {
         checkVideos([event.target]);
-      }, false);        
+      }, false);
     }
-  }, false);    
-  checkVideos(); 
+  }, false);
+  checkVideos();
 
   /*
   }, false);
   d.body.appendChild(script);
   */
-  
+
   // iterates over all videos and see if they have a Media Fragments URI
   function checkVideos(videos) {
     videos = videos || d.getElementsByTagName('video');
-    for (var i = 0, video; video = videos[i]; i++) {    
+    for (var i = 0, video; video = videos[i]; i++) {
       if (video.classList.contains(MEDIAFRAGMENTS)) {
         continue;
       }
@@ -502,10 +503,10 @@
             video.addEventListener('canplay', function(e) {
               var vid = e.target;
               vid.currentTime = start;
-              if (DEBUG) console.log('Seeking the <video> to ' + start);              
+              if (DEBUG) console.log('Seeking the <video> to ' + start);
             }, false);
-          }   
-          var end = time.endNormalized;     
+          }
+          var end = time.endNormalized;
           if (end > 0) {
             if (DEBUG) console.log('Will pause the <video> at ' + end);
             video.addEventListener('timeupdate', function(e) {
@@ -514,11 +515,11 @@
               if (currentTime >= end) {
                 vid.pause();
                 if (DEBUG) console.log('Pausing the <video> at ' + end);
-              } 
+              }
             }, false);
           }
         }
       }
     }
-  }     
-})(document)
+  }
+})(document);
