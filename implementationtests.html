@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+      "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <link rel="stylesheet" href="./test_resources/qunit.css" type="text/css"/>
+    <script src="./mediafragments.js"></script>
+    <script src="./test_resources/jquery.js"></script>
+    <script type="text/javascript" src="./test_resources/qunit.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var uri = 'http://example.com/example.webm';
+
+        module("Media Fragments URI - Implementation Report");
+
+        var request = new XMLHttpRequest();
+        request.open('GET', './test_resources/testcases.tsv', false);
+        request.send(null);
+
+        if (request.status == 200) {
+          var script = '';
+          var tests = request.responseText;
+          tests.split(/\n/).forEach(function(test) {
+            var columns = test.split(/\t/);
+            script +=
+                'test("' + columns[0].replace('\'', "\'") + ' => ' + columns[2] + ' => ' + columns[1] + '", function() {\n' +
+                '  expect(1);\n' +
+                '  var should = ' + columns[3] + ';\n' +
+                '  var is = MediaFragments.parseMediaFragmentsUri("' + columns[1] + '");\n' +
+                '  delete is["toString"];\n' +
+                '  deepEqual(is, should, \'\');\n' +
+              '});\n\n';
+          });
+          eval(script);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <h1 id="qunit-header">QUnit example</h1>
+    <h2 id="qunit-banner"></h2>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests">
+    </ol>
+  </body>
+</html>

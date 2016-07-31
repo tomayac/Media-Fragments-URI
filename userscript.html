@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Media Fragments URIs - User Script Test Page</title>
+    <style>
+      BODY {
+        font-family: sans-serif;
+        font-size: 14pt;
+      }
+      H1 {
+        font-weight: bold;
+        color: darkblue;
+        font-size: 1.1em;
+      }
+      VIDEO {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    Click to install the <a href="https://raw.github.com/tomayac/Media-Fragments-URI/master/.user.js">User Script</a>.
+    <h1>Video 1 (static)</h1>
+    <div id="video1Div">
+      <video controls src="sintel.webm#t=20,40"></video>
+    </div>
+    <h1>Video 2 (dynamic &lt;video&gt;&lt;/video&gt;)</h1>
+    <div id="video2Div">
+      <button id="video2Button">Put a video here!</button>
+    </div>
+    <h1>Video 3 (dynamic &lt;video&gt;&lt;source&gt;&lt;/video&gt;)</h1>
+    <div id="video3Div">
+      <button id="video3Button">Put a video with separate source here!</button>
+    </div>
+    <script type="application/javascript">
+      (function(d) {
+        var video2Button = d.getElementById('video2Button');
+        var video3Button = d.getElementById('video3Button');
+        var video2Div = d.getElementById('video2Div');
+        var video3Div = d.getElementById('video3Div');
+
+        video2Button.addEventListener('click', function(e) {
+          var video2 = d.createElement('video');
+          video2.src = './dizzy.mp4#t=10,20';
+          video2.controls = 'controls';
+          video2Div.appendChild(video2);
+          video2Button.parentNode.removeChild(video2Button);
+        }, false);
+
+        video3Button.addEventListener('click', function(e) {
+          var video3 = d.createElement('video');
+          video3.controls = 'controls';
+          var source3 = d.createElement('source');
+          source3.src = './bunny.webm#t=40';
+          video3.appendChild(source3);
+          video3Div.appendChild(video3);
+          video3Button.parentNode.removeChild(video3Button);
+        }, false);
+      })(document)
+    </script>
+  </body>
+</html>
