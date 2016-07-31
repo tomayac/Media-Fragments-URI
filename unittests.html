@@ -6,14 +6,14 @@
     <script src="./mediafragments.js"></script>
     <script src="./test_resources/jquery.js"></script>
     <script type="text/javascript" src="./test_resources/qunit.js"></script>
-    <script type="text/javascript">  
-      $(document).ready(function(){  
-        var uri = 'http://example.com/example.webm';        
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var uri = 'http://example.com/example.webm';
 
-        module("Media Fragments URI - Query Part Unit Tests");  
+        module("Media Fragments URI - Query Part Unit Tests");
 
-        test("Valid simple temporal test npt (seconds)", function() {  
-          expect(1);  
+        test("Valid simple temporal test npt (seconds)", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -27,11 +27,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=1,10').query;
-          deepEqual(is, should, '');  
-        });    
-        
-        test("Valid simple temporal test npt (seconds, milliseconds)", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test npt (seconds, milliseconds)", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -45,11 +45,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=1.000,10.000').query;
-          deepEqual(is, should, '');  
-        });        
-        
-        test("Valid simple temporal test npt (minutes, seconds)", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test npt (minutes, seconds)", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -63,11 +63,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=00:01,00:10').query;
-          deepEqual(is, should, '');  
-        });    
-        
-        test("Valid simple temporal test npt (minutes, seconds, milliseconds)", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test npt (minutes, seconds, milliseconds)", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -81,13 +81,13 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=00:01.000,00:10.000').query;
-          deepEqual(is, should, '');  
-        });    
-        
+          deepEqual(is, should, '');
+        });
+
 
         test("Valid simple temporal test npt (hours, minutes, seconds)",
-            function() {  
-          expect(1);  
+            function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -101,12 +101,12 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=00:00:01,00:00:10').query;
-          deepEqual(is, should, '');  
-        });            
+          deepEqual(is, should, '');
+        });
 
         test("Valid simple temporal test npt (hours, minutes, seconds, milliseconds)",
-            function() {  
-          expect(1);  
+            function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -121,11 +121,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=00:00:01.000,00:00:10.000').query;
-          deepEqual(is, should, '');  
-        });            
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test smpte", function() {  
-          expect(1);  
+        test("Valid simple temporal test smpte", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -137,11 +137,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:00.15').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test clock", function() {  
-          expect(1);  
+        test("Valid simple temporal test clock", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -153,11 +153,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=clock:2009-07-26T11:19:01Z,2009-07-26T11:20:01Z').query;
-          deepEqual(is, should, '');  
-        });    
-        
-        test("Valid simple temporal test, only start parameter npt", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test, only start parameter npt", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -171,11 +171,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=1').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only start parameter smpte", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only start parameter smpte", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -187,11 +187,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only start parameter clock", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only start parameter clock", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -203,11 +203,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=clock:2009-07-26T11:19:01Z').query;
-          deepEqual(is, should, '');  
-        });        
-        
-        test("Valid simple temporal test, only end parameter npt", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test, only end parameter npt", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -221,11 +221,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=,1').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only end parameter smpte", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only end parameter smpte", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -237,11 +237,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:,0:02:00').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only end parameter clock", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only end parameter clock", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -253,39 +253,39 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=clock:,2009-07-26T11:19:01Z').query;
-          deepEqual(is, should, '');  
-        });        
-        
-        test("Invalid negative start temporal", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Invalid negative start temporal", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=-1,1').query;
-          deepEqual(is, should, '');            
-        });  
-        
-        test("Invalid start > end temporal (seconds)", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Invalid start > end temporal (seconds)", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=10,1').query;
-          deepEqual(is, should, '');            
-        });        
+          deepEqual(is, should, '');
+        });
 
-        test("Invalid start > end temporal (seconds, milliseconds)", function() {  
-          expect(1);  
+        test("Invalid start > end temporal (seconds, milliseconds)", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=10.000,1.000').query;
-          deepEqual(is, should, '');            
-        });        
-        
-        test("Invalid start > end temporal (hours, minutes, seconds, milliseconds)", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Invalid start > end temporal (hours, minutes, seconds, milliseconds)", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=00:00:10.000,00:00:01.000').query;
-          deepEqual(is, should, '');            
-        });              
-        
-        test("Valid simple spatial test", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple spatial test", function() {
+          expect(1);
           var should = {
             xywh: [
               {
@@ -299,11 +299,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?xywh=10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple spatial test, pixel", function() {  
-          expect(1);  
+        test("Valid simple spatial test, pixel", function() {
+          expect(1);
           var should = {
             xywh: [
               {
@@ -317,11 +317,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?xywh=pixel:10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple spatial test, percent", function() {  
-          expect(1);  
+        test("Valid simple spatial test, percent", function() {
+          expect(1);
           var should = {
             xywh: [
               {
@@ -335,39 +335,39 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?xywh=percent:10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Invalid simple spatial test", function() {  
-          expect(1);  
+        test("Invalid simple spatial test", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?xywh=-10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Invalid simple spatial test, negative x, pixel", function() {  
-          expect(1);  
+        test("Invalid simple spatial test, negative x, pixel", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?xywh=pixel:-10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Invalid simple spatial test, negative x, percent", function() {  
-          expect(1);  
+        test("Invalid simple spatial test, negative x, percent", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?xywh=percent:-10,10,10,10').query;
-          deepEqual(is, should, '');  
+          deepEqual(is, should, '');
         });
-        
-        test("Invalid simple spatial test, percent value > 100, percent", function() {  
-          expect(1);  
+
+        test("Invalid simple spatial test, percent value > 100, percent", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?xywh=percent:101,10,10,10').query;
-          deepEqual(is, should, '');  
-        });      
-        
-        test("Valid simple temporal test npt, xywh", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test npt, xywh", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -388,14 +388,14 @@
                 w: 10,
                 h: 10
               }
-            ]            
+            ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=1,10&xywh=10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test smpte, xywh", function() {  
-          expect(1);  
+        test("Valid simple temporal test smpte, xywh", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -414,14 +414,14 @@
                 w: 10,
                 h: 10
               }
-            ]            
+            ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:00.15&xywh=10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test clock, xywh", function() {  
-          expect(1);  
+        test("Valid simple temporal test clock, xywh", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -443,13 +443,13 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=clock:2009-07-26T11:19:01Z,2009-07-26T11:20:01Z&xywh=10,10,10,10').query;
-          deepEqual(is, should, '');  
-        });        
+          deepEqual(is, should, '');
+        });
 
-        module("Media Fragments URI - Hash Part Unit Tests");  
-        
-        test("Valid simple temporal test npt", function() {  
-          expect(1);  
+        module("Media Fragments URI - Hash Part Unit Tests");
+
+        test("Valid simple temporal test npt", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -463,11 +463,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=1,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test smpte", function() {  
-          expect(1);  
+        test("Valid simple temporal test smpte", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -479,11 +479,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:0:02:00,0:02:01:00.15').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test clock", function() {  
-          expect(1);  
+        test("Valid simple temporal test clock", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -495,11 +495,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=clock:2009-07-26T11:19:01Z,2009-07-26T11:20:01Z').hash;
-          deepEqual(is, should, '');  
-        });    
-        
-        test("Valid simple temporal test, only start parameter npt", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test, only start parameter npt", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -513,11 +513,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=1').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only start parameter smpte", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only start parameter smpte", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -529,11 +529,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:0:02:00').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only start parameter clock", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only start parameter clock", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -545,11 +545,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=clock:2009-07-26T11:19:01Z').hash;
-          deepEqual(is, should, '');  
-        });        
-        
-        test("Valid simple temporal test, only end parameter npt", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple temporal test, only end parameter npt", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -563,11 +563,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=,1').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only end parameter smpte", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only end parameter smpte", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -579,11 +579,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:,0:02:00').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test, only end parameter clock", function() {  
-          expect(1);  
+        test("Valid simple temporal test, only end parameter clock", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -595,18 +595,18 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=clock:,2009-07-26T11:19:01Z').hash;
-          deepEqual(is, should, '');  
-        });        
-        
-        test("Invalid negative start temporal", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Invalid negative start temporal", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=-1,1').hash;
-          deepEqual(is, should, '');            
-        });  
-        
-        test("Valid simple spatial test", function() {  
-          expect(1);  
+          deepEqual(is, should, '');
+        });
+
+        test("Valid simple spatial test", function() {
+          expect(1);
           var should = {
             xywh: [
               {
@@ -620,11 +620,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#xywh=10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple spatial test, pixel", function() {  
-          expect(1);  
+        test("Valid simple spatial test, pixel", function() {
+          expect(1);
           var should = {
             xywh: [
               {
@@ -638,11 +638,11 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#xywh=pixel:10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple spatial test, percent", function() {  
-          expect(1);  
+        test("Valid simple spatial test, percent", function() {
+          expect(1);
           var should = {
             xywh: [
               {
@@ -656,39 +656,39 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#xywh=percent:10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Invalid simple spatial test", function() {  
-          expect(1);  
+        test("Invalid simple spatial test", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#xywh=-10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Invalid simple spatial test, negative x, pixel", function() {  
-          expect(1);  
+        test("Invalid simple spatial test, negative x, pixel", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#xywh=pixel:-10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Invalid simple spatial test, negative x, percent", function() {  
-          expect(1);  
+        test("Invalid simple spatial test, negative x, percent", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#xywh=percent:-10,10,10,10').hash;
-          deepEqual(is, should, '');  
+          deepEqual(is, should, '');
         });
-        
-        test("Invalid simple spatial test, percent value > 100, percent", function() {  
-          expect(1);  
+
+        test("Invalid simple spatial test, percent value > 100, percent", function() {
+          expect(1);
           var should = {};
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#xywh=percent:101,10,10,10').hash;
-          deepEqual(is, should, '');  
+          deepEqual(is, should, '');
         });
-        
-        test("Valid simple temporal test npt, xywh", function() {  
-          expect(1);  
+
+        test("Valid simple temporal test npt, xywh", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -709,14 +709,14 @@
                 w: 10,
                 h: 10
               }
-            ]            
+            ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=1,10&xywh=10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test smpte, xywh", function() {  
-          expect(1);  
+        test("Valid simple temporal test smpte, xywh", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -735,14 +735,14 @@
                 w: 10,
                 h: 10
               }
-            ]            
+            ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=smpte-30:0:02:00,0:02:01:00.15&xywh=10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test clock, xywh", function() {  
-          expect(1);  
+        test("Valid simple temporal test clock, xywh", function() {
+          expect(1);
           var should = {
             t: [
               {
@@ -764,13 +764,13 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '#t=clock:2009-07-26T11:19:01Z,2009-07-26T11:20:01Z&xywh=10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
-        
+          deepEqual(is, should, '');
+        });
+
         module("Media Fragments URI - Query & Hash Part Unit Tests");
-        
-        test("Valid simple temporal test npt (query), xywh (hash)", function() {  
-          expect(2);  
+
+        test("Valid simple temporal test npt (query), xywh (hash)", function() {
+          expect(2);
           var should = {
             t: [
               {
@@ -784,8 +784,8 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=1,10#xywh=10,10,10,10').query;
-          deepEqual(is, should, '');  
-          var should = {          
+          deepEqual(is, should, '');
+          var should = {
             xywh: [
               {
                 value: '10,10,10,10',
@@ -795,14 +795,14 @@
                 w: 10,
                 h: 10
               }
-            ]            
+            ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=1,10#xywh=10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test smpte (query), xywh (hash)", function() {  
-          expect(2);  
+        test("Valid simple temporal test smpte (query), xywh (hash)", function() {
+          expect(2);
           var should = {
             t: [
               {
@@ -814,7 +814,7 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:00.15#xywh=10,10,10,10').query;
-          deepEqual(is, should, '');            
+          deepEqual(is, should, '');
           var should = {
             xywh: [
               {
@@ -825,14 +825,14 @@
                 w: 10,
                 h: 10
               }
-            ]            
+            ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=smpte-30:0:02:00,0:02:01:00.15#xywh=10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });    
+          deepEqual(is, should, '');
+        });
 
-        test("Valid simple temporal test clock (query), xywh (hash)", function() {  
-          expect(2);  
+        test("Valid simple temporal test clock (query), xywh (hash)", function() {
+          expect(2);
           var should = {
             t: [
               {
@@ -844,7 +844,7 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=clock:2009-07-26T11:19:01Z,2009-07-26T11:20:01Z#xywh=10,10,10,10').query;
-          deepEqual(is, should, '');            
+          deepEqual(is, should, '');
           var should = {
             xywh: [
               {
@@ -858,9 +858,9 @@
             ]
           };
           var is = MediaFragments.parseMediaFragmentsUri(uri + '?t=clock:2009-07-26T11:19:01Z,2009-07-26T11:20:01Z#xywh=10,10,10,10').hash;
-          deepEqual(is, should, '');  
-        });                                    
-      });      
+          deepEqual(is, should, '');
+        });
+      });
     </script>
   </head>
   <body>

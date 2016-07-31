@@ -6,17 +6,17 @@
     <script src="./mediafragments.js"></script>
     <script src="./test_resources/jquery.js"></script>
     <script type="text/javascript" src="./test_resources/qunit.js"></script>
-    <script type="text/javascript">  
-      $(document).ready(function(){  
-        var uri = 'http://example.com/example.webm';        
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var uri = 'http://example.com/example.webm';
 
-        module("Media Fragments URI - Implementation Report");  
-        
-        var request = new XMLHttpRequest();  
-        request.open('GET', './test_resources/testcases.tsv', false);   
-        request.send(null);  
+        module("Media Fragments URI - Implementation Report");
 
-        if (request.status == 200) {  
+        var request = new XMLHttpRequest();
+        request.open('GET', './test_resources/testcases.tsv', false);
+        request.send(null);
+
+        if (request.status == 200) {
           var script = '';
           var tests = request.responseText;
           tests.split(/\n/).forEach(function(test) {
